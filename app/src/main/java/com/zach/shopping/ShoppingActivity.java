@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.zach.shopping.data.ApiResponse;
@@ -82,8 +83,12 @@ public class ShoppingActivity extends AppCompatActivity {
     private void renderSuccessResponse(JsonElement response) {
 
         resultTextView.setText(response.toString());
-        JsonObject o = response.getAsJsonObject();
-        System.out.println(o);
+        JsonObject jsonObject = response.getAsJsonObject();
+
+        JsonArray products = jsonObject.getAsJsonArray("products");
+        for(JsonElement product : products){
+            System.out.println(product.getAsJsonObject().get("name"));
+        }
 
     }
 }
