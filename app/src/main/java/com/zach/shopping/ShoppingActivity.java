@@ -29,7 +29,6 @@ public class ShoppingActivity extends AppCompatActivity {
     @BindView(R.id.result_text_view)
     TextView resultTextView;
 
-
     ShoppingViewModel viewModel;
 
     ProgressDialog progressDialog;
