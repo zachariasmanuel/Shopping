@@ -13,14 +13,14 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by zac on 09-May-2019
  */
-public class ShoppingViewModel extends ViewModel {
+public class ProductListViewModel extends ViewModel {
 
     private Repository repository;
     private final CompositeDisposable disposables = new CompositeDisposable();
     private final MutableLiveData<ApiResponse> responseLiveData = new MutableLiveData<>();
 
 
-    public ShoppingViewModel(Repository repository) {
+    public ProductListViewModel(Repository repository) {
         this.repository = repository;
     }
 

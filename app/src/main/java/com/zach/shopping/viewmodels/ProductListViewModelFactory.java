@@ -11,12 +11,12 @@ import javax.inject.Inject;
 /**
  * Created by zac on 09-May-2019
  */
-public class ViewModelFactory implements ViewModelProvider.Factory {
+public class ProductListViewModelFactory implements ViewModelProvider.Factory {
 
     private Repository repository;
 
     @Inject
-    public ViewModelFactory(Repository repository) {
+    public ProductListViewModelFactory(Repository repository) {
         this.repository = repository;
     }
 
@@ -24,8 +24,8 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(ShoppingViewModel.class)) {
-            return (T) new ShoppingViewModel(repository);
+        if (modelClass.isAssignableFrom(ProductListViewModel.class)) {
+            return (T) new ProductListViewModel(repository);
         }
 
         throw new IllegalArgumentException("Unknown class name");

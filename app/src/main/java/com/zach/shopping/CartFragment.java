@@ -28,27 +28,27 @@ import butterknife.ButterKnife;
 /**
  * Created by zac on 09-May-2019
  */
-public class ProductListFragment extends Fragment {
+public class CartFragment extends Fragment {
 
     @Inject
     ProductListViewModelFactory productListViewModelFactory;
 
-    @BindView(R.id.result_text_view)
+    @BindView(R.id.result_text_view1)
     TextView resultTextView;
 
     ProductListViewModel viewModel;
 
     ProgressDialog progressDialog;
 
-    public static ProductListFragment getInstance() {
-       return new ProductListFragment();
+    public static CartFragment getInstance() {
+        return new CartFragment();
     }
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.product_list_fragment, container, false);
+        View root = inflater.inflate(R.layout.cart_fragment, container, false);
 
         progressDialog = Constant.getProgressDialog(getActivity(), "Please wait...");
 

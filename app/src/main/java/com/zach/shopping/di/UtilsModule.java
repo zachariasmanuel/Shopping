@@ -12,7 +12,7 @@ import com.zach.shopping.data.ApiCallInterface;
 import com.zach.shopping.data.Repository;
 import com.zach.shopping.data.Urls;
 import com.zach.shopping.data.db.AppDatabase;
-import com.zach.shopping.viewmodels.ViewModelFactory;
+import com.zach.shopping.viewmodels.ProductListViewModelFactory;
 
 import java.util.concurrent.TimeUnit;
 
@@ -31,7 +31,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class UtilsModule {
-
 
     @Provides
     @Singleton
@@ -95,6 +94,6 @@ public class UtilsModule {
     @Provides
     @Singleton
     ViewModelProvider.Factory getViewModelFactory(Repository myRepository) {
-        return new ViewModelFactory(myRepository);
+        return new ProductListViewModelFactory(myRepository);
     }
 }
