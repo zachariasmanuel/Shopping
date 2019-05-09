@@ -1,6 +1,6 @@
 package com.zach.shopping.di;
 
-import com.zach.shopping.ShoppingActivity;
+import com.zach.shopping.ProductListFragment;
 
 import javax.inject.Singleton;
 
@@ -13,5 +13,5 @@ import dagger.Component;
 @Component(modules = {AppModule.class, UtilsModule.class})
 @Singleton
 public interface AppComponent {
-    void doInjection(ShoppingActivity shoppingActivity);
+    void doInjection(ProductListFragment productListFragment);
 }

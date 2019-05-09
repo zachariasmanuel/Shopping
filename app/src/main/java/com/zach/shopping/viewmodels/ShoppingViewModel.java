@@ -17,7 +17,6 @@ public class ShoppingViewModel extends ViewModel {
 
     private Repository repository;
     private final CompositeDisposable disposables = new CompositeDisposable();
-    private final CompositeDisposable newdisposables = new CompositeDisposable();
     private final MutableLiveData<ApiResponse> responseLiveData = new MutableLiveData<>();
 
 
@@ -30,7 +29,7 @@ public class ShoppingViewModel extends ViewModel {
     }
 
 
-    public void fetchProduct() {
+    public void fetchProductsFromApi() {
 
         disposables.add(repository.fetchProduct()
                 .subscribeOn(Schedulers.newThread())
@@ -48,22 +47,32 @@ public class ShoppingViewModel extends ViewModel {
         disposables.add(repository.fetchProductsFromDB()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                //.doOnSubscribe((d) -> responseLiveData.setValue(ApiResponse.loading()))
                 .subscribe(
                         products -> System.out.println("Size - "+products.get(0).name)
                 ));
     }
+
 
     public void addToCart() {
 
         disposables.add(repository.addToCart()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                //.doOnSubscribe((d) -> responseLiveData.setValue(ApiResponse.loading()))
                 .subscribe(
                         products -> System.out.println(products.size())
                 ));
     }
+
+    public void getCartProducts(){
+
+    }
+
+    public void getOrderedProducts(){
+
+    }
+
+
+
 
     @Override
     protected void onCleared() {
