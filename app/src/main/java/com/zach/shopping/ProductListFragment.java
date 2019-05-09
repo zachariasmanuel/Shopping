@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,9 @@ public class ProductListFragment extends Fragment {
     @BindView(R.id.result_text_view)
     TextView resultTextView;
 
+    @BindView(R.id.next_button)
+    Button nextButton;
+
     ProductListViewModel viewModel;
 
     ProgressDialog progressDialog;
@@ -53,6 +57,13 @@ public class ProductListFragment extends Fragment {
         progressDialog = Constant.getProgressDialog(getActivity(), "Please wait...");
 
         ButterKnife.bind(this, root);
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((ShoppingActivity)getActivity()).loadCartFragment();
+            }
+        });
 
         return root;
     }

@@ -17,24 +17,41 @@ public class ShoppingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //((MyApplication) getApplication()).getAppComponent().doInjection(this);
-//        productListFragment = (ProductListFragment) getSupportFragmentManager().findFragmentById(R.id.content_frame);
+        productListFragment = (ProductListFragment) getSupportFragmentManager().findFragmentById(R.id.content_frame);
+
+        if(productListFragment == null){
+            productListFragment = ProductListFragment.getInstance();
+        }
+
+        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), productListFragment, R.id.content_frame);
+
+
+//        cartFragment = (CartFragment) getSupportFragmentManager().findFragmentById(R.id.content_frame);
 //
-//        if(productListFragment == null){
-//            productListFragment = ProductListFragment.getInstance();
+//        if(cartFragment == null){
+//            cartFragment = CartFragment.getInstance();
 //        }
 //
-//        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), productListFragment, R.id.content_frame);
+//        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), cartFragment, R.id.content_frame);
 
+    }
 
-        cartFragment = (CartFragment) getSupportFragmentManager().findFragmentById(R.id.content_frame);
-
+    public void loadCartFragment(){
         if(cartFragment == null){
             cartFragment = CartFragment.getInstance();
         }
 
-        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), cartFragment, R.id.content_frame);
-
+        ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), cartFragment, R.id.content_frame);
     }
 
+    @Override
+    public void onBackPressed() {
+        if(getFragmentManager().getBackStackEntryCount() == 1) {
+            moveTaskToBack(false);
+        }
+        else {
+            super.onBackPressed();
+        }
+
+    }
 }
