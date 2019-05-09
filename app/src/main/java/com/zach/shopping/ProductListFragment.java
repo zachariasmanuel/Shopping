@@ -6,11 +6,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonArray;
@@ -34,11 +34,11 @@ public class ProductListFragment extends Fragment {
     @Inject
     ProductListViewModelFactory productListViewModelFactory;
 
-    @BindView(R.id.result_text_view)
-    TextView resultTextView;
+    @BindView(R.id.product_list_recycler_view)
+    RecyclerView recyclerView;
 
-    @BindView(R.id.next_button)
-    Button nextButton;
+    private ProductListRecyclerViewAdapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     ProductListViewModel viewModel;
 
@@ -55,15 +55,8 @@ public class ProductListFragment extends Fragment {
         View root = inflater.inflate(R.layout.product_list_fragment, container, false);
 
         progressDialog = Constant.getProgressDialog(getActivity(), "Please wait...");
-
         ButterKnife.bind(this, root);
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((ShoppingActivity)getActivity()).loadCartFragment();
-            }
-        });
 
         return root;
     }
@@ -76,13 +69,14 @@ public class ProductListFragment extends Fragment {
 
 
         viewModel = ViewModelProviders.of(this, productListViewModelFactory).get(ProductListViewModel.class);
-
         viewModel.productFetchResponse().observe(this, this::consumeResponse);
 
-        //viewModel.fetchProductFromDB();
+        recyclerView.setHasFixedSize(true);
 
-        //viewModel.addToCart();
-
+        layoutManager = new GridLayoutManager(getActivity(),2);
+        recyclerView.setLayoutManager(layoutManager);
+        mAdapter = new ProductListRecyclerViewAdapter();
+        recyclerView.setAdapter(mAdapter);
 
         if (!Constant.checkInternetConnection(getActivity())) {
             Toast.makeText(getActivity(), "Network Error", Toast.LENGTH_SHORT).show();
@@ -116,14 +110,10 @@ public class ProductListFragment extends Fragment {
     }
 
     private void renderSuccessResponse(JsonElement response) {
-
-        resultTextView.setText(response.toString());
         JsonObject jsonObject = response.getAsJsonObject();
 
         JsonArray products = jsonObject.getAsJsonArray("products");
-        for(JsonElement product : products){
-            System.out.println(product.getAsJsonObject().get("name"));
-        }
+        mAdapter.setData(products);
 
     }
 }
