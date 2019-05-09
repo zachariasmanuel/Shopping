@@ -12,6 +12,7 @@ import com.zach.shopping.data.ApiCallInterface;
 import com.zach.shopping.data.Repository;
 import com.zach.shopping.data.Urls;
 import com.zach.shopping.data.db.AppDatabase;
+import com.zach.shopping.viewmodels.CartViewModelFactory;
 import com.zach.shopping.viewmodels.ProductListViewModelFactory;
 
 import java.util.concurrent.TimeUnit;
@@ -93,7 +94,13 @@ public class UtilsModule {
 
     @Provides
     @Singleton
-    ViewModelProvider.Factory getViewModelFactory(Repository myRepository) {
+    ViewModelProvider.Factory getProductListViewModelFactory(Repository myRepository) {
         return new ProductListViewModelFactory(myRepository);
+    }
+
+    @Provides
+    @Singleton
+    ViewModelProvider.Factory getCartViewModelFactory(Repository myRepository) {
+        return new CartViewModelFactory(myRepository);
     }
 }

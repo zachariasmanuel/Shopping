@@ -48,7 +48,7 @@ public class ProductListViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        products -> System.out.println("Size - "+products.get(0).name)
+                        products -> System.out.println("Name - "+products.get(0).name)
                 ));
     }
 
@@ -63,9 +63,7 @@ public class ProductListViewModel extends ViewModel {
                 ));
     }
 
-    public void getCartProducts(){
 
-    }
 
     public void getOrderedProducts(){
 

@@ -17,7 +17,7 @@ public class ShoppingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        //((MyApplication) getApplication()).getAppComponent().doInjection(this);
+        //((MyApplication) getApplication()).getAppComponent().doInjection(this);
 //        productListFragment = (ProductListFragment) getSupportFragmentManager().findFragmentById(R.id.content_frame);
 //
 //        if(productListFragment == null){
@@ -25,7 +25,6 @@ public class ShoppingActivity extends AppCompatActivity {
 //        }
 //
 //        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), productListFragment, R.id.content_frame);
-
 
 
         cartFragment = (CartFragment) getSupportFragmentManager().findFragmentById(R.id.content_frame);
