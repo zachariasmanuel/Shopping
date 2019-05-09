@@ -7,6 +7,8 @@ import android.arch.persistence.room.Query;
 
 import java.util.List;
 
+import io.reactivex.Maybe;
+
 /**
  * Created by zac on 09-May-2019
  */
@@ -14,10 +16,10 @@ import java.util.List;
 public interface ProductDao {
 
     @Query("SELECT * FROM product")
-    List<Product> getAll();
+    Maybe<List<Product>> getAll();
 
     @Insert
-    void insertAll(Product... products);
+    List<Long> insertAll(Product... products);
 
     @Delete
     void delete(Product product);

@@ -1,6 +1,8 @@
 package com.zach.shopping.di;
 
 import android.arch.lifecycle.ViewModelProvider;
+import android.arch.persistence.room.Room;
+import android.content.Context;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -9,6 +11,7 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.zach.shopping.data.ApiCallInterface;
 import com.zach.shopping.data.Repository;
 import com.zach.shopping.data.Urls;
+import com.zach.shopping.data.db.AppDatabase;
 import com.zach.shopping.viewmodels.ViewModelFactory;
 
 import java.util.concurrent.TimeUnit;
@@ -75,16 +78,18 @@ public class UtilsModule {
         return httpClient.build();
     }
 
-//    @Provides
-//    @Singleton
-//    Repository getAppDatabase() {
-//        return new Repository(apiCallInterface);
-//    }
+    @Provides
+    @Singleton
+    AppDatabase getAppDatabase(Context context) {
+        return Room.databaseBuilder(context, AppDatabase.class, "ShoppingDB")
+                //.addMigrations(AppDatabase.MIGRATION_1_2)
+                .build();
+    }
 
     @Provides
     @Singleton
-    Repository getRepository(ApiCallInterface apiCallInterface) {
-        return new Repository(apiCallInterface);
+    Repository getRepository(ApiCallInterface apiCallInterface, AppDatabase appDatabase) {
+        return new Repository(apiCallInterface, appDatabase);
     }
 
     @Provides

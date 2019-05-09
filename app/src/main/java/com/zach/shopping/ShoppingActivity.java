@@ -44,7 +44,12 @@ public class ShoppingActivity extends AppCompatActivity {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ShoppingViewModel.class);
 
-        viewModel.loginResponse().observe(this, this::consumeResponse);
+        viewModel.productFetchResponse().observe(this, this::consumeResponse);
+
+        viewModel.fetchProductFromDB();
+
+        //viewModel.addToCart();
+
 
         if (!Constant.checkInternetConnection(this)) {
             Toast.makeText(ShoppingActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
