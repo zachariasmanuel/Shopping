@@ -75,6 +75,12 @@ public class UtilsModule {
         return httpClient.build();
     }
 
+//    @Provides
+//    @Singleton
+//    Repository getAppDatabase() {
+//        return new Repository(apiCallInterface);
+//    }
+
     @Provides
     @Singleton
     Repository getRepository(ApiCallInterface apiCallInterface) {
