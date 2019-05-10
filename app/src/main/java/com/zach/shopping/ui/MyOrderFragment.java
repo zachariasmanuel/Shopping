@@ -49,6 +49,13 @@ public class MyOrderFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.my_order_fragment, container, false);
         ButterKnife.bind(this, root);
+
+        if ((getActivity()) != null) {
+            ((ShoppingActivity) getActivity()).setTitle("My Order");
+            ((ShoppingActivity) getActivity()).showCartIcon(true);
+            ((ShoppingActivity) getActivity()).showMyOrderIcon(false);
+        }
+
         return root;
     }
 

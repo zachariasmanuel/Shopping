@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/action_cart"
+        android:icon="@drawable/ic_action_shopping_cart"
+        android:orderInCategory="101"
+        android:title="Cart"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_my_order"
+        android:icon="@drawable/ic_action_airport_shuttle"
+        android:orderInCategory="100"
+        android:title="My Order"
+        app:showAsAction="ifRoom" />
+
+</menu>

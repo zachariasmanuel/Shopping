@@ -56,6 +56,7 @@ public class ProductListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.product_list_fragment, container, false);
 
+
         progressDialog = Constant.getProgressDialog(getActivity(), "Please wait...");
         ButterKnife.bind(this, root);
 
@@ -65,6 +66,12 @@ public class ProductListFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        if ((getActivity()) != null) {
+            ((ShoppingActivity) getActivity()).setTitle("Shopping List");
+            ((ShoppingActivity) getActivity()).showCartIcon(true);
+            ((ShoppingActivity) getActivity()).showMyOrderIcon(true);
+        }
 
         ((MyApplication) getActivity().getApplication()).getAppComponent().doInjection(this);
 

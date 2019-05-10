@@ -61,6 +61,12 @@ public class CartFragment extends Fragment {
         progressDialog = Constant.getProgressDialog(getActivity(), "Please wait...");
         ButterKnife.bind(this, root);
 
+        if ((getActivity()) != null) {
+            ((ShoppingActivity) getActivity()).setTitle("Cart");
+            ((ShoppingActivity) getActivity()).showCartIcon(false);
+            ((ShoppingActivity) getActivity()).showMyOrderIcon(true);
+        }
+
         return root;
     }
 

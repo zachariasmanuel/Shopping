@@ -68,6 +68,13 @@ public class ProductDetailsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.product_details_fragment, container, false);
         ButterKnife.bind(this, root);
+
+        if ((getActivity()) != null) {
+            ((ShoppingActivity) getActivity()).setTitle("");
+            ((ShoppingActivity) getActivity()).showCartIcon(true);
+            ((ShoppingActivity) getActivity()).showMyOrderIcon(true);
+        }
+
         return root;
     }
 
