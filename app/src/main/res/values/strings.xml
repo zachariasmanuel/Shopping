@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Shopping</string>
+    <string name="no_name">No Name</string>
+    <string name="rupees_sysmbol">₹</string>
+    <string name="no_price">No Price</string>
+    <string name="rating_text">Rating :</string>
+    <string name="no_rating">No Rating</string>
 </resources>

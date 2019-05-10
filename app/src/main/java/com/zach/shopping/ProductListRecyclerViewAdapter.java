@@ -1,5 +1,6 @@
 package com.zach.shopping;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,12 +21,16 @@ public class ProductListRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView nameTextView;
+        TextView productListItemnameTextView;
+        TextView productListItempriceTextView;
+        TextView productListItemratingTextView;
         ImageView productListItemImageView;
 
         MyViewHolder(View v) {
             super(v);
-            nameTextView = v.findViewById(R.id.product_list_item_name);
+            productListItemnameTextView = v.findViewById(R.id.product_list_item_name);
+            productListItempriceTextView = v.findViewById(R.id.product_list_item_price);
+            productListItemratingTextView = v.findViewById(R.id.product_list_item_rating);
             productListItemImageView = v.findViewById(R.id.product_list_item_image_view);
         }
     }
@@ -34,14 +39,14 @@ public class ProductListRecyclerViewAdapter extends RecyclerView.Adapter<Product
         this.context = context;
     }
 
-    public void setData(JsonArray products){
+    public void setData(JsonArray products) {
         this.products = products;
         notifyDataSetChanged();
     }
 
     @Override
     public ProductListRecyclerViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
-                                                     int viewType) {
+                                                                          int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.product_list_item, parent, false);
 
@@ -50,16 +55,32 @@ public class ProductListRecyclerViewAdapter extends RecyclerView.Adapter<Product
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        //holder.nameTextView.setText(products.get(position).getAsJsonObject().get("name").toString());
-        //Glide.with(context).load(products.get(position).getAsJsonObject().get("image_url").toString()).centerCrop().into(holder.productListItemImageView);
-        //https://i.gadgets360cdn.com/products/large/1526490365_635_oneplus_6.jpg
-        Glide.with(context).load(products.get(position).getAsJsonObject().get("image_url").getAsString()).centerCrop().into(holder.productListItemImageView);
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        String productName = products.get(position).getAsJsonObject().get("name").getAsString();
+        String productPrice = products.get(position).getAsJsonObject().get("price").getAsString();
+        String productRating = products.get(position).getAsJsonObject().get("rating").getAsString();
+        String productImageURL = products.get(position).getAsJsonObject().get("image_url").getAsString();
+        if (productName != null)
+            holder.productListItemnameTextView.setText((productName.length() > 20) ? productName.substring(0, 20) : productName);
+        else
+            holder.productListItemnameTextView.setText(context.getString(R.string.no_name));
+
+        if (productPrice != null)
+            holder.productListItempriceTextView.setText(String.format("%s%s", context.getString(R.string.rupees_sysmbol), productPrice));
+        else
+            holder.productListItempriceTextView.setText(context.getString(R.string.no_price));
+
+        if (productRating != null)
+            holder.productListItemratingTextView.setText(String.format("%s%s", context.getString(R.string.rating_text), productRating));
+        else
+            holder.productListItemratingTextView.setText(context.getString(R.string.no_rating));
+
+        Glide.with(context).load(productImageURL).centerCrop().into(holder.productListItemImageView);
     }
 
     @Override
     public int getItemCount() {
-        if(products == null)
+        if (products == null)
             return 0;
         return products.size();
     }
