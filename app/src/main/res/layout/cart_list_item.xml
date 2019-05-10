@@ -1,42 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="220dp"
     android:padding="5dp">
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        card_view:cardCornerRadius="4dp"
-        card_view:cardElevation="2dp"
+        android:layout_height="match_parent"
+        card_view:cardElevation="5dp"
         card_view:layout_constraintBottom_toBottomOf="parent"
         card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintHorizontal_bias="0.0"
         card_view:layout_constraintStart_toStartOf="parent"
-        card_view:layout_constraintTop_toTopOf="parent">
+        card_view:layout_constraintTop_toTopOf="parent"
+        card_view:layout_constraintVertical_bias="0.0">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="5dp">
+            android:adjustViewBounds="true">
 
 
             <ImageView
                 android:id="@+id/cart_list_item_image_view"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
                 android:src="@drawable/ic_launcher_background"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                card_view:layout_constraintBottom_toTopOf="@+id/remove_button"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
-                android:layout_width="200dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="165dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
                 android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent">
+                card_view:layout_constraintBottom_toTopOf="@+id/remove_button"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toEndOf="@+id/cart_list_item_image_view"
+                card_view:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/cart_list_item_name"
@@ -76,8 +86,19 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
             </LinearLayout>
-        </android.support.constraint.ConstraintLayout>
 
+            <Button
+                android:id="@+id/remove_button"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/colorPrimary"
+                android:text="REMOVE FROM CART"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+        </android.support.constraint.ConstraintLayout>
 
     </android.support.v7.widget.CardView>
 

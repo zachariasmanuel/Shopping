@@ -23,7 +23,6 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
     CartFragment context;
     ItemClickListener itemClickListener;
 
-
     static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView cartListItemNameTextView;
