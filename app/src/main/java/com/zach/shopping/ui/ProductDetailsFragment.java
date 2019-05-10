@@ -4,10 +4,12 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,6 +34,7 @@ import butterknife.ButterKnife;
 public class ProductDetailsFragment extends Fragment {
 
     private JsonObject product;
+    private boolean isInCart = false;
 
     @Inject
     ProductDetailsViewModelFactory productDetailsViewModelFactory;
@@ -53,6 +56,9 @@ public class ProductDetailsFragment extends Fragment {
     @BindView(R.id.product_details_image_view)
     ImageView productImageView;
 
+    @BindView(R.id.add_to_cart_button)
+    Button addToCartButton;
+
     public static ProductDetailsFragment getInstance() {
         return new ProductDetailsFragment();
     }
@@ -71,7 +77,7 @@ public class ProductDetailsFragment extends Fragment {
 
         ((MyApplication) getActivity().getApplication()).getAppComponent().doInjection(this);
         viewModel = ViewModelProviders.of(this, productDetailsViewModelFactory).get(ProductDetailsViewModel.class);
-        viewModel.cartItemsResponse().observe(this, this::consumeResponse);
+        viewModel.cartItemsResponse().observe(this, this::consumeCartItemsResponse);
 
         String productName = product.get("name").getAsString();
         String productPrice = product.get("price").getAsString();
@@ -101,16 +107,45 @@ public class ProductDetailsFragment extends Fragment {
 
         Glide.with(this).load(productImageURL).centerCrop().into(productImageView);
 
+        addToCartButton.setOnClickListener(view -> {
+            if (!isInCart) {
+                Cart cart = new Cart();
+                cart.uid = product.get("id").getAsInt();
+                cart.name = productName;
+                cart.price = productPrice;
+                cart.imageURL = productImageURL;
+                cart.rating = productRating;
+                cart.description = productDescription;
+                viewModel.addToCart(cart);
+                isInCart = true;
+                addToCartButton.setText("GO TO CART");
+                Snackbar.make(view, "Item added to cart", Snackbar.LENGTH_SHORT).show();
+            } else {
+                ((ShoppingActivity) getActivity()).loadCartFragment();
+            }
+        });
         viewModel.getCartProducts();
-
     }
 
     public void setProduct(JsonObject product) {
         this.product = product;
     }
 
-    private void consumeResponse(List<Cart> cartItems) {
+    private void consumeCartItemsResponse(List<Cart> cartItems) {
         System.out.println("Size - " + cartItems.size());
+        isInCart = false;
+        for (Cart cart : cartItems) {
+            if (cart.uid == product.get("id").getAsInt()) {
+                isInCart = true;
+                break;
+            }
+        }
+
+        if (isInCart)
+            addToCartButton.setText("GO TO CART");
+        else
+            addToCartButton.setText("ADD TO CART");
 
     }
+
 }
