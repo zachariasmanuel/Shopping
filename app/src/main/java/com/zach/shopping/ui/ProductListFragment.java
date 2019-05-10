@@ -68,12 +68,10 @@ public class ProductListFragment extends Fragment {
 
         ((MyApplication) getActivity().getApplication()).getAppComponent().doInjection(this);
 
-
         viewModel = ViewModelProviders.of(this, productListViewModelFactory).get(ProductListViewModel.class);
         viewModel.productFetchResponse().observe(this, this::consumeResponse);
 
         recyclerView.setHasFixedSize(true);
-
         layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
         mAdapter = new ProductListRecyclerViewAdapter(this);

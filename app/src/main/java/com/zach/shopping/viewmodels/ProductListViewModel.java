@@ -42,32 +42,32 @@ public class ProductListViewModel extends ViewModel {
 
     }
 
-    public void fetchProductFromDB() {
-
-        disposables.add(repository.fetchProductsFromDB()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        products -> System.out.println("Name - "+products.get(0).name)
-                ));
-    }
-
-
-    public void addToCart() {
-
-        disposables.add(repository.addToCart()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        products -> System.out.println(products.size())
-                ));
-    }
-
-
-
-    public void getOrderedProducts(){
-
-    }
+//    public void fetchProductFromDB() {
+//
+////        disposables.add(repository.fetchProductsFromDB()
+////                .subscribeOn(Schedulers.io())
+////                .observeOn(AndroidSchedulers.mainThread())
+////                .subscribe(
+////                        products -> System.out.println("Name - "+products.get(0).name)
+////                ));
+//    }
+//
+//
+//    public void addToCart() {
+//
+//        disposables.add(repository.addToCart()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(
+//                        products -> System.out.println(products.size())
+//                ));
+//    }
+//
+//
+//
+//    public void getOrderedProducts(){
+//
+//    }
 
 
 

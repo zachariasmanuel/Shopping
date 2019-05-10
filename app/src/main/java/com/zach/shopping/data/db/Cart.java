@@ -9,7 +9,7 @@ import android.arch.persistence.room.PrimaryKey;
  */
 
 @Entity
-public class Product {
+public class Cart {
 
     @PrimaryKey(autoGenerate = true)
     public int uid;
@@ -25,6 +25,9 @@ public class Product {
 
     @ColumnInfo(name = "rating")
     public String rating;
+
+    @ColumnInfo(name = "description")
+    public String description;
 
     @ColumnInfo(name = "status")
     public String status;

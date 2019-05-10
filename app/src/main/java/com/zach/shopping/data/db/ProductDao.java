@@ -15,12 +15,12 @@ import io.reactivex.Maybe;
 @Dao
 public interface ProductDao {
 
-    @Query("SELECT * FROM product")
-    Maybe<List<Product>> getAll();
+    @Query("SELECT * FROM cart")
+    Maybe<List<Cart>> getCartItems();
 
     @Insert
-    List<Long> insertAll(Product... products);
+    List<Long> addToCart(Cart... carts);
 
     @Delete
-    void delete(Product product);
+    void delete(Cart cart);
 }

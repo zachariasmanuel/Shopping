@@ -2,7 +2,7 @@ package com.zach.shopping.data;
 
 import com.google.gson.JsonElement;
 import com.zach.shopping.data.db.AppDatabase;
-import com.zach.shopping.data.db.Product;
+import com.zach.shopping.data.db.Cart;
 
 import java.util.List;
 
@@ -22,25 +22,15 @@ public class Repository {
         this.appDatabase = appDatabase;
     }
 
-
     public Observable<JsonElement> fetchProduct() {
-
         return apiCallInterface.fetchProduct();
     }
 
-    public Maybe<List<Product>> fetchProductsFromDB(){
-        return appDatabase.productDao().getAll();
+    public Maybe<List<Cart>> getCartItems(){
+        return appDatabase.productDao().getCartItems();
     }
 
-    public Observable<List<Long>> addToCart(){
-        System.out.println("Reached here");
-        Product product = new Product();
-        product.name = "Moto";
-        product.price = "100USD";
-        product.imageURL = "www.google.com";
-        product.rating = "3";
-        product.status = "cart";
-        return Observable.fromCallable(() -> appDatabase.productDao().insertAll(product));
-
+    public Observable<List<Long>> addToCart(Cart cart){
+        return Observable.fromCallable(() -> appDatabase.productDao().addToCart(cart));
     }
 }

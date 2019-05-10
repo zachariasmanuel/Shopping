@@ -60,7 +60,7 @@ public class CartFragment extends Fragment {
 
         viewModel = ViewModelProviders.of(this, cartViewModelFactory).get(CartViewModel.class);
 
-        viewModel.getCartProducts();
+        //viewModel.getCartProducts();
 
     }
 

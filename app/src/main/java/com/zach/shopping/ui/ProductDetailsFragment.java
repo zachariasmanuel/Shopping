@@ -15,8 +15,11 @@ import com.bumptech.glide.Glide;
 import com.google.gson.JsonObject;
 import com.zach.shopping.MyApplication;
 import com.zach.shopping.R;
+import com.zach.shopping.data.db.Cart;
 import com.zach.shopping.viewmodels.ProductDetailsViewModel;
 import com.zach.shopping.viewmodels.ProductDetailsViewModelFactory;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -26,7 +29,7 @@ import butterknife.ButterKnife;
 /**
  * Created by zac on 10-May-2019
  */
-public class ProductDetailsFragment  extends Fragment {
+public class ProductDetailsFragment extends Fragment {
 
     private JsonObject product;
 
@@ -68,6 +71,7 @@ public class ProductDetailsFragment  extends Fragment {
 
         ((MyApplication) getActivity().getApplication()).getAppComponent().doInjection(this);
         viewModel = ViewModelProviders.of(this, productDetailsViewModelFactory).get(ProductDetailsViewModel.class);
+        viewModel.cartItemsResponse().observe(this, this::consumeResponse);
 
         String productName = product.get("name").getAsString();
         String productPrice = product.get("price").getAsString();
@@ -97,11 +101,16 @@ public class ProductDetailsFragment  extends Fragment {
 
         Glide.with(this).load(productImageURL).centerCrop().into(productImageView);
 
-       // viewModel.getCartProducts();
+        viewModel.getCartProducts();
 
     }
 
     public void setProduct(JsonObject product) {
         this.product = product;
+    }
+
+    private void consumeResponse(List<Cart> cartItems) {
+        System.out.println("Size - " + cartItems.size());
+
     }
 }
