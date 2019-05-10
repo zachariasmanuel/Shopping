@@ -8,7 +8,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.gson.JsonObject;
 import com.zach.shopping.MyApplication;
 import com.zach.shopping.R;
 import com.zach.shopping.viewmodels.ProductDetailsViewModel;
@@ -16,6 +20,7 @@ import com.zach.shopping.viewmodels.ProductDetailsViewModelFactory;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -23,10 +28,27 @@ import butterknife.ButterKnife;
  */
 public class ProductDetailsFragment  extends Fragment {
 
+    private JsonObject product;
+
     @Inject
     ProductDetailsViewModelFactory productDetailsViewModelFactory;
 
     ProductDetailsViewModel viewModel;
+
+    @BindView(R.id.product_details_name_text_view)
+    TextView nameTextView;
+
+    @BindView(R.id.product_details_price_text_view)
+    TextView priceTextView;
+
+    @BindView(R.id.product_details_rating_text_view)
+    TextView ratingTextView;
+
+    @BindView(R.id.product_details_description_text_view)
+    TextView descriptionTextView;
+
+    @BindView(R.id.product_details_image_view)
+    ImageView productImageView;
 
     public static ProductDetailsFragment getInstance() {
         return new ProductDetailsFragment();
@@ -46,8 +68,40 @@ public class ProductDetailsFragment  extends Fragment {
 
         ((MyApplication) getActivity().getApplication()).getAppComponent().doInjection(this);
         viewModel = ViewModelProviders.of(this, productDetailsViewModelFactory).get(ProductDetailsViewModel.class);
-        viewModel.getCartProducts();
+
+        String productName = product.get("name").getAsString();
+        String productPrice = product.get("price").getAsString();
+        String productRating = product.get("rating").getAsString();
+        String productDescription = product.get("description").getAsString();
+        String productImageURL = product.get("image_url").getAsString();
+
+        if (productName != null)
+            nameTextView.setText((productName.length() > 20) ? productName.substring(0, 20) : productName);
+        else
+            nameTextView.setText(getString(R.string.no_name));
+
+        if (productPrice != null)
+            priceTextView.setText(String.format("%s%s", getString(R.string.rupees_sysmbol), productPrice));
+        else
+            priceTextView.setText(getString(R.string.no_price));
+
+        if (productRating != null)
+            ratingTextView.setText(String.format("%s%s", getString(R.string.rating_text), productRating));
+        else
+            ratingTextView.setText(getString(R.string.no_rating));
+
+        if (productDescription != null)
+            descriptionTextView.setText(productDescription);
+        else
+            descriptionTextView.setText("");
+
+        Glide.with(this).load(productImageURL).centerCrop().into(productImageView);
+
+       // viewModel.getCartProducts();
 
     }
 
+    public void setProduct(JsonObject product) {
+        this.product = product;
+    }
 }

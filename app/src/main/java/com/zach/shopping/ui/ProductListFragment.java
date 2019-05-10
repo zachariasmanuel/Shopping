@@ -81,7 +81,7 @@ public class ProductListFragment extends Fragment {
             @Override
             public void onItemClicked(JsonObject product) {
                 if (getActivity() instanceof ShoppingActivity)
-                    ((ShoppingActivity) getActivity()).loadProductDetailsFragment();
+                    ((ShoppingActivity) getActivity()).loadProductDetailsFragment(product);
             }
         });
         recyclerView.setAdapter(mAdapter);

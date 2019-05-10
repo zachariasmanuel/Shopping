@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.google.gson.JsonObject;
 import com.zach.shopping.R;
 import com.zach.shopping.utilities.ActivityUtils;
 
@@ -36,10 +37,11 @@ public class ShoppingActivity extends AppCompatActivity {
         ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), cartFragment, R.id.content_frame);
     }
 
-    public void loadProductDetailsFragment(){
+    public void loadProductDetailsFragment(JsonObject product){
         if(productDetailsFragment == null){
             productDetailsFragment = ProductDetailsFragment.getInstance();
         }
+        productDetailsFragment.setProduct(product);
         ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), productDetailsFragment, R.id.content_frame);
     }
 
