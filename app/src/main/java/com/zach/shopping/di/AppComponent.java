@@ -1,6 +1,7 @@
 package com.zach.shopping.di;
 
 import com.zach.shopping.ui.CartFragment;
+import com.zach.shopping.ui.MyOrderFragment;
 import com.zach.shopping.ui.ProductDetailsFragment;
 import com.zach.shopping.ui.ProductListFragment;
 
@@ -18,4 +19,5 @@ public interface AppComponent {
     void doInjection(ProductListFragment productListFragment);
     void doInjection(CartFragment cartFragment);
     void doInjection(ProductDetailsFragment productDetailsFragment);
+    void doInjection(MyOrderFragment myOrderFragment);
 }

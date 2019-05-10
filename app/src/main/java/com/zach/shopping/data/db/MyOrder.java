@@ -5,14 +5,16 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 /**
- * Created by zac on 09-May-2019
+ * Created by zac on 10-May-2019
  */
-
 @Entity
-public class Cart {
+public class MyOrder {
 
-    @PrimaryKey()
+    @PrimaryKey(autoGenerate = true)
     public int uid;
+
+    @ColumnInfo(name = "product_id")
+    public int productId;
 
     @ColumnInfo(name = "name")
     public String name;
@@ -28,5 +30,4 @@ public class Cart {
 
     @ColumnInfo(name = "description")
     public String description;
-
 }

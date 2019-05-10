@@ -50,6 +50,8 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         notifyDataSetChanged();
     }
 
+    public List<Cart> getData(){return this.cartItems;}
+
     @Override
     public CartRecyclerViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                                    int viewType) {

@@ -23,4 +23,13 @@ public interface ProductDao {
 
     @Delete
     int removeFromCart(Cart product);
+
+    @Query("DELETE FROM cart")
+    void removeAllFromCart();
+
+    @Insert
+    List<Long> addToOrder(List<MyOrder> myOrders);
+
+    @Query("SELECT * FROM myorder")
+    Maybe<List<MyOrder>> getOrders();
 }

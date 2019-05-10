@@ -14,6 +14,7 @@ public class ShoppingActivity extends AppCompatActivity {
     ProductListFragment productListFragment;
     CartFragment cartFragment;
     ProductDetailsFragment productDetailsFragment;
+    MyOrderFragment myOrderFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,6 +44,13 @@ public class ShoppingActivity extends AppCompatActivity {
         }
         productDetailsFragment.setProduct(product);
         ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), productDetailsFragment, R.id.content_frame);
+    }
+
+    public void myOrderFragment(){
+        if(myOrderFragment == null){
+            myOrderFragment = MyOrderFragment.getInstance();
+        }
+        ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), myOrderFragment, R.id.content_frame);
     }
 
     @Override

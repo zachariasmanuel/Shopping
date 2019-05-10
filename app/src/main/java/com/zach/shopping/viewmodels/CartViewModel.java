@@ -5,7 +5,9 @@ import android.arch.lifecycle.ViewModel;
 
 import com.zach.shopping.data.Repository;
 import com.zach.shopping.data.db.Cart;
+import com.zach.shopping.data.db.MyOrder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -56,4 +58,38 @@ public class CartViewModel extends ViewModel {
                         }
                 ));
     }
+
+    public void moveAllToMyOrder(List<Cart> cartData) {
+
+        List<MyOrder> myOrders = new ArrayList<>();
+
+        disposables.add(repository.removeAllFromCart()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        success -> {
+                            System.out.println("Removed from cart - " + success);
+                        }
+                ));
+
+        for (Cart cart : cartData) {
+            MyOrder myOrder = new MyOrder();
+            myOrder.productId = cart.uid;
+            myOrder.name = cart.name;
+            myOrder.price = cart.price;
+            myOrder.imageURL = cart.imageURL;
+            myOrder.description = cart.description;
+            myOrders.add(myOrder);
+        }
+
+        disposables.add(repository.addToOrder(myOrders)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        success -> {
+                            System.out.println("Added to order - " + success.size());
+                        }
+                ));
+    }
 }
+

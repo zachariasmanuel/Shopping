@@ -3,6 +3,7 @@ package com.zach.shopping.data;
 import com.google.gson.JsonElement;
 import com.zach.shopping.data.db.AppDatabase;
 import com.zach.shopping.data.db.Cart;
+import com.zach.shopping.data.db.MyOrder;
 
 import java.util.List;
 
@@ -36,5 +37,20 @@ public class Repository {
 
     public Observable<Integer> removeFromCart(Cart product) {
         return Observable.fromCallable(() -> appDatabase.productDao().removeFromCart(product));
+    }
+
+    public Observable<Boolean> removeAllFromCart() {
+        return Observable.fromCallable(() -> {
+            appDatabase.productDao().removeAllFromCart();
+            return true;
+        });
+    }
+
+    public Observable<List<Long>> addToOrder(List<MyOrder> myOrders) {
+        return Observable.fromCallable(() -> appDatabase.productDao().addToOrder(myOrders));
+    }
+
+    public Maybe<List<MyOrder>> getOrders() {
+        return appDatabase.productDao().getOrders();
     }
 }
