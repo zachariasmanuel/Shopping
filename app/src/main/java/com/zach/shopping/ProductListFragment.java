@@ -75,7 +75,7 @@ public class ProductListFragment extends Fragment {
 
         layoutManager = new GridLayoutManager(getActivity(),2);
         recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new ProductListRecyclerViewAdapter();
+        mAdapter = new ProductListRecyclerViewAdapter(this);
         recyclerView.setAdapter(mAdapter);
 
         if (!Constant.checkInternetConnection(getActivity())) {
