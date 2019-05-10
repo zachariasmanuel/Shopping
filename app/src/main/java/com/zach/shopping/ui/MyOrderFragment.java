@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.zach.shopping.MyApplication;
 import com.zach.shopping.R;
@@ -36,6 +37,9 @@ public class MyOrderFragment extends Fragment {
 
     @BindView(R.id.my_order_recycler_view)
     RecyclerView recyclerView;
+
+    @BindView(R.id.my_order_empty_text_view)
+    TextView myOrderEmptyTextView;
 
     private MyOrderListRecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -76,6 +80,10 @@ public class MyOrderFragment extends Fragment {
     }
 
     private void consumeCartItemsResponse(List<MyOrder> myOrders) {
+        if(myOrders.size() == 0)
+            myOrderEmptyTextView.setVisibility(View.VISIBLE);
+        else
+            myOrderEmptyTextView.setVisibility(View.GONE);
         mAdapter.setData(myOrders);
     }
 

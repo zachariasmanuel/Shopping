@@ -5,4 +5,6 @@
     <string name="no_price">No Price</string>
     <string name="rating_text">Rating :</string>
     <string name="no_rating">No Rating</string>
+    <string name="your_cart_is_empty">Your cart is empty</string>
+    <string name="my_order_is_empty">You haven\'t ordered anything yet</string>
 </resources>

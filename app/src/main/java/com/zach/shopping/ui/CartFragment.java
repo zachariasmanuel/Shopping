@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.zach.shopping.MyApplication;
 import com.zach.shopping.R;
@@ -35,7 +36,6 @@ public class CartFragment extends Fragment {
 
     @Inject
     CartViewModelFactory cartViewModelFactory;
-
     CartViewModel viewModel;
     ProgressDialog progressDialog;
 
@@ -44,6 +44,9 @@ public class CartFragment extends Fragment {
 
     @BindView(R.id.cart_checkout_button)
     Button checkoutButton;
+
+    @BindView(R.id.cart_empty_text_view)
+    TextView cartEmptyTextView;
 
     private CartRecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -57,7 +60,6 @@ public class CartFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.cart_fragment, container, false);
-
         progressDialog = Constant.getProgressDialog(getActivity(), "Please wait...");
         ButterKnife.bind(this, root);
 
@@ -75,7 +77,6 @@ public class CartFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         ((MyApplication) getActivity().getApplication()).getAppComponent().doInjection(this);
-
         viewModel = ViewModelProviders.of(this, cartViewModelFactory).get(CartViewModel.class);
 
         recyclerView.setHasFixedSize(true);
@@ -86,17 +87,25 @@ public class CartFragment extends Fragment {
         viewModel.getCartItemsResponse().observe(this, this::consumeCartItemsResponse);
         viewModel.getDeleteSuccessResponse().observe(this, this::consumeDeleteSuccessResponse);
         viewModel.getCartProducts();
-
         mAdapter.setClickListener(product -> viewModel.removeItemFromCart(product));
 
         checkoutButton.setOnClickListener(view -> {
-            viewModel.moveAllToMyOrder(mAdapter.getData());
-            ((ShoppingActivity) getActivity()).loadMyOrderFragment();
-            Snackbar.make(view, "Items ordered", Snackbar.LENGTH_SHORT).show();
+            if (mAdapter.getData().size() == 0)
+                Snackbar.make(view, "Your cart is empty", Snackbar.LENGTH_SHORT).show();
+            else {
+                viewModel.moveAllToMyOrder(mAdapter.getData());
+                ((ShoppingActivity) getActivity()).loadMyOrderFragment();
+                Snackbar.make(view, "Items ordered", Snackbar.LENGTH_SHORT).show();
+            }
         });
     }
 
     private void consumeCartItemsResponse(List<Cart> cartItems) {
+        if (cartItems.size() == 0) {
+            cartEmptyTextView.setVisibility(View.VISIBLE);
+        } else {
+            cartEmptyTextView.setVisibility(View.GONE);
+        }
         mAdapter.setData(cartItems);
     }
 

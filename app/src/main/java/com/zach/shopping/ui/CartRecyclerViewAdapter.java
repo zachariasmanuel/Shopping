@@ -19,9 +19,9 @@ import java.util.List;
  * Created by zac on 10-May-2019
  */
 public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerViewAdapter.MyViewHolder> {
-    List<Cart> cartItems;
-    CartFragment context;
-    ItemClickListener itemClickListener;
+    private List<Cart> cartItems;
+    private CartFragment context;
+    private ItemClickListener itemClickListener;
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -41,7 +41,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         }
     }
 
-    public CartRecyclerViewAdapter(CartFragment context) {
+    CartRecyclerViewAdapter(CartFragment context) {
         this.context = context;
     }
 
@@ -50,16 +50,18 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         notifyDataSetChanged();
     }
 
-    public List<Cart> getData(){return this.cartItems;}
+    public List<Cart> getData() {
+        return this.cartItems;
+    }
 
+    @NonNull
     @Override
-    public CartRecyclerViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
+    public CartRecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
                                                                    int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.cart_list_item, parent, false);
 
-        CartRecyclerViewAdapter.MyViewHolder dataObjectHolder = new CartRecyclerViewAdapter.MyViewHolder(view);
-        return dataObjectHolder;
+        return new MyViewHolder(view);
     }
 
     @Override
@@ -85,12 +87,10 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
 
         Glide.with(context).load(productImageURL).centerCrop().into(holder.cartListItemImageView);
 
-        holder.removeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(itemClickListener != null)
-                    itemClickListener.onRemoveClicked(cartItems.get(position));
-            }
+        holder.removeButton.setOnClickListener(view -> {
+
+            if (itemClickListener != null)
+                itemClickListener.onRemoveClicked(cartItems.get(position));
         });
     }
 
@@ -105,7 +105,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         void onRemoveClicked(Cart product);
     }
 
-    public void setClickListener(ItemClickListener itemClickListener) {
+    void setClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }
 }

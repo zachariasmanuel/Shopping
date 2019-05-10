@@ -13,7 +13,6 @@ import com.zach.shopping.utilities.ActivityUtils;
 
 public class ShoppingActivity extends AppCompatActivity {
 
-
     ProductListFragment productListFragment;
     CartFragment cartFragment;
     ProductDetailsFragment productDetailsFragment;
