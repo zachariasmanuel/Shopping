@@ -1,4 +1,4 @@
-package com.zach.shopping;
+package com.zach.shopping.ui;
 
 import android.app.ProgressDialog;
 import android.arch.lifecycle.ViewModelProviders;
@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.zach.shopping.MyApplication;
+import com.zach.shopping.R;
 import com.zach.shopping.data.ApiResponse;
 import com.zach.shopping.utilities.Constant;
 import com.zach.shopping.viewmodels.ProductListViewModel;
@@ -45,7 +47,7 @@ public class ProductListFragment extends Fragment {
     ProgressDialog progressDialog;
 
     public static ProductListFragment getInstance() {
-       return new ProductListFragment();
+        return new ProductListFragment();
     }
 
 
@@ -56,7 +58,6 @@ public class ProductListFragment extends Fragment {
 
         progressDialog = Constant.getProgressDialog(getActivity(), "Please wait...");
         ButterKnife.bind(this, root);
-
 
         return root;
     }
@@ -73,10 +74,18 @@ public class ProductListFragment extends Fragment {
 
         recyclerView.setHasFixedSize(true);
 
-        layoutManager = new GridLayoutManager(getActivity(),2);
+        layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
         mAdapter = new ProductListRecyclerViewAdapter(this);
+        mAdapter.setClickListener(new ProductListRecyclerViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClicked(JsonObject product) {
+                if (getActivity() instanceof ShoppingActivity)
+                    ((ShoppingActivity) getActivity()).loadProductDetailsFragment();
+            }
+        });
         recyclerView.setAdapter(mAdapter);
+
 
         if (!Constant.checkInternetConnection(getActivity())) {
             Toast.makeText(getActivity(), "Network Error", Toast.LENGTH_SHORT).show();

@@ -103,4 +103,10 @@ public class UtilsModule {
     ViewModelProvider.Factory getCartViewModelFactory(Repository myRepository) {
         return new CartViewModelFactory(myRepository);
     }
+
+    @Provides
+    @Singleton
+    ViewModelProvider.Factory getProductDetailsViewModelFactory(Repository myRepository) {
+        return new ProductListViewModelFactory(myRepository);
+    }
 }

@@ -1,4 +1,4 @@
-package com.zach.shopping;
+package com.zach.shopping.ui;
 
 import android.app.ProgressDialog;
 import android.arch.lifecycle.ViewModelProviders;
@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.zach.shopping.MyApplication;
+import com.zach.shopping.R;
 import com.zach.shopping.utilities.Constant;
 import com.zach.shopping.viewmodels.CartViewModel;
 import com.zach.shopping.viewmodels.CartViewModelFactory;

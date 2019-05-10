@@ -1,4 +1,4 @@
-package com.zach.shopping;
+package com.zach.shopping.ui;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.zach.shopping.R;
 
 /**
  * Created by zac on 10-May-2019
@@ -17,20 +19,21 @@ import com.google.gson.JsonArray;
 public class ProductListRecyclerViewAdapter extends RecyclerView.Adapter<ProductListRecyclerViewAdapter.MyViewHolder> {
     JsonArray products;
     ProductListFragment context;
+    ItemClickListener itemClickListener;
 
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView productListItemnameTextView;
-        TextView productListItempriceTextView;
-        TextView productListItemratingTextView;
+        TextView productListItemNameTextView;
+        TextView productListItemPriceTextView;
+        TextView productListItemRatingTextView;
         ImageView productListItemImageView;
 
         MyViewHolder(View v) {
             super(v);
-            productListItemnameTextView = v.findViewById(R.id.product_list_item_name);
-            productListItempriceTextView = v.findViewById(R.id.product_list_item_price);
-            productListItemratingTextView = v.findViewById(R.id.product_list_item_rating);
+            productListItemNameTextView = v.findViewById(R.id.product_list_item_name);
+            productListItemPriceTextView = v.findViewById(R.id.product_list_item_price);
+            productListItemRatingTextView = v.findViewById(R.id.product_list_item_rating);
             productListItemImageView = v.findViewById(R.id.product_list_item_image_view);
         }
     }
@@ -61,21 +64,29 @@ public class ProductListRecyclerViewAdapter extends RecyclerView.Adapter<Product
         String productRating = products.get(position).getAsJsonObject().get("rating").getAsString();
         String productImageURL = products.get(position).getAsJsonObject().get("image_url").getAsString();
         if (productName != null)
-            holder.productListItemnameTextView.setText((productName.length() > 20) ? productName.substring(0, 20) : productName);
+            holder.productListItemNameTextView.setText((productName.length() > 20) ? productName.substring(0, 20) : productName);
         else
-            holder.productListItemnameTextView.setText(context.getString(R.string.no_name));
+            holder.productListItemNameTextView.setText(context.getString(R.string.no_name));
 
         if (productPrice != null)
-            holder.productListItempriceTextView.setText(String.format("%s%s", context.getString(R.string.rupees_sysmbol), productPrice));
+            holder.productListItemPriceTextView.setText(String.format("%s%s", context.getString(R.string.rupees_sysmbol), productPrice));
         else
-            holder.productListItempriceTextView.setText(context.getString(R.string.no_price));
+            holder.productListItemPriceTextView.setText(context.getString(R.string.no_price));
 
         if (productRating != null)
-            holder.productListItemratingTextView.setText(String.format("%s%s", context.getString(R.string.rating_text), productRating));
+            holder.productListItemRatingTextView.setText(String.format("%s%s", context.getString(R.string.rating_text), productRating));
         else
-            holder.productListItemratingTextView.setText(context.getString(R.string.no_rating));
+            holder.productListItemRatingTextView.setText(context.getString(R.string.no_rating));
 
         Glide.with(context).load(productImageURL).centerCrop().into(holder.productListItemImageView);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (itemClickListener != null)
+                    itemClickListener.onItemClicked(products.get(position).getAsJsonObject());
+            }
+        });
     }
 
     @Override
@@ -83,5 +94,13 @@ public class ProductListRecyclerViewAdapter extends RecyclerView.Adapter<Product
         if (products == null)
             return 0;
         return products.size();
+    }
+
+    interface ItemClickListener {
+        void onItemClicked(JsonObject product);
+    }
+
+    public void setClickListener(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
     }
 }

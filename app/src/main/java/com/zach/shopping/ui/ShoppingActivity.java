@@ -1,9 +1,10 @@
-package com.zach.shopping;
+package com.zach.shopping.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.zach.shopping.R;
 import com.zach.shopping.utilities.ActivityUtils;
 
 public class ShoppingActivity extends AppCompatActivity {
@@ -11,6 +12,7 @@ public class ShoppingActivity extends AppCompatActivity {
 
     ProductListFragment productListFragment;
     CartFragment cartFragment;
+    ProductDetailsFragment productDetailsFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,16 +26,6 @@ public class ShoppingActivity extends AppCompatActivity {
         }
 
         ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), productListFragment, R.id.content_frame);
-
-
-//        cartFragment = (CartFragment) getSupportFragmentManager().findFragmentById(R.id.content_frame);
-//
-//        if(cartFragment == null){
-//            cartFragment = CartFragment.getInstance();
-//        }
-//
-//        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), cartFragment, R.id.content_frame);
-
     }
 
     public void loadCartFragment(){
@@ -42,6 +34,13 @@ public class ShoppingActivity extends AppCompatActivity {
         }
 
         ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), cartFragment, R.id.content_frame);
+    }
+
+    public void loadProductDetailsFragment(){
+        if(productDetailsFragment == null){
+            productDetailsFragment = ProductDetailsFragment.getInstance();
+        }
+        ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), productDetailsFragment, R.id.content_frame);
     }
 
     @Override
