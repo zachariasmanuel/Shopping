@@ -34,6 +34,7 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:text="CHECKOUT"
+        android:textColor="@color/buttonTextWhite"
         android:background="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
