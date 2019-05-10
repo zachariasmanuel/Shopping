@@ -46,7 +46,7 @@ public class ShoppingActivity extends AppCompatActivity {
         ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), productDetailsFragment, R.id.content_frame);
     }
 
-    public void myOrderFragment(){
+    public void loadMyOrderFragment(){
         if(myOrderFragment == null){
             myOrderFragment = MyOrderFragment.getInstance();
         }
