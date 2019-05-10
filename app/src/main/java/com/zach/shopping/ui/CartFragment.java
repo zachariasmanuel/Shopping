@@ -6,16 +6,20 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.zach.shopping.MyApplication;
 import com.zach.shopping.R;
+import com.zach.shopping.data.db.Cart;
 import com.zach.shopping.utilities.Constant;
 import com.zach.shopping.viewmodels.CartViewModel;
 import com.zach.shopping.viewmodels.CartViewModelFactory;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -30,11 +34,14 @@ public class CartFragment extends Fragment {
     @Inject
     CartViewModelFactory cartViewModelFactory;
 
-    @BindView(R.id.result_text_view1)
-    TextView resultTextView;
-
     CartViewModel viewModel;
     ProgressDialog progressDialog;
+
+    @BindView(R.id.cart_list_recycler_view)
+    RecyclerView recyclerView;
+
+    private CartRecyclerViewAdapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     public static CartFragment getInstance() {
         return new CartFragment();
@@ -60,8 +67,20 @@ public class CartFragment extends Fragment {
 
         viewModel = ViewModelProviders.of(this, cartViewModelFactory).get(CartViewModel.class);
 
-        //viewModel.getCartProducts();
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        mAdapter = new CartRecyclerViewAdapter(this);
+        recyclerView.setAdapter(mAdapter);
+        viewModel.cartItemsResponse().observe(this, this::consumeCartItemsResponse);
+
+        viewModel.getCartProducts();
 
     }
 
+    private void consumeCartItemsResponse(List<Cart> cartItems) {
+        mAdapter.setData(cartItems);
+    }
 }
+
+
