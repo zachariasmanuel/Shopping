@@ -72,14 +72,27 @@ public class CartFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         mAdapter = new CartRecyclerViewAdapter(this);
         recyclerView.setAdapter(mAdapter);
-        viewModel.cartItemsResponse().observe(this, this::consumeCartItemsResponse);
-
+        viewModel.getCartItemsResponse().observe(this, this::consumeCartItemsResponse);
+        viewModel.getDeleteSuccessResponse().observe(this, this::consumeDeleteSuccessResponse);
         viewModel.getCartProducts();
+
+        mAdapter.setClickListener(new CartRecyclerViewAdapter.ItemClickListener() {
+            @Override
+            public void onRemoveClicked(Cart product) {
+                viewModel.removeItemFromCart(product);
+            }
+        });
 
     }
 
     private void consumeCartItemsResponse(List<Cart> cartItems) {
         mAdapter.setData(cartItems);
+    }
+
+    private void consumeDeleteSuccessResponse(Boolean success) {
+        if (success) {
+            viewModel.getCartProducts();
+        }
     }
 }
 

@@ -22,5 +22,5 @@ public interface ProductDao {
     List<Long> addToCart(Cart... carts);
 
     @Delete
-    void delete(Cart cart);
+    int removeFromCart(Cart product);
 }

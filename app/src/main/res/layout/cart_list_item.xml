@@ -31,7 +31,7 @@
                 android:src="@drawable/ic_launcher_background"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                card_view:layout_constraintBottom_toTopOf="@+id/remove_button"
+                card_view:layout_constraintBottom_toTopOf="@+id/cart_list_remove_button"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
@@ -43,7 +43,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="30dp"
                 android:orientation="vertical"
-                card_view:layout_constraintBottom_toTopOf="@+id/remove_button"
+                card_view:layout_constraintBottom_toTopOf="@+id/cart_list_remove_button"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toEndOf="@+id/cart_list_item_image_view"
                 card_view:layout_constraintTop_toTopOf="parent">
@@ -88,7 +88,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/remove_button"
+                android:id="@+id/cart_list_remove_button"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@color/colorPrimary"

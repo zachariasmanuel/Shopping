@@ -26,11 +26,15 @@ public class Repository {
         return apiCallInterface.fetchProduct();
     }
 
-    public Maybe<List<Cart>> getCartItems(){
+    public Maybe<List<Cart>> getCartItems() {
         return appDatabase.productDao().getCartItems();
     }
 
-    public Observable<List<Long>> addToCart(Cart cart){
+    public Observable<List<Long>> addToCart(Cart cart) {
         return Observable.fromCallable(() -> appDatabase.productDao().addToCart(cart));
+    }
+
+    public Observable<Integer> removeFromCart(Cart product) {
+        return Observable.fromCallable(() -> appDatabase.productDao().removeFromCart(product));
     }
 }

@@ -20,13 +20,18 @@ public class CartViewModel extends ViewModel {
     private Repository repository;
     private final CompositeDisposable disposables = new CompositeDisposable();
     private final MutableLiveData<List<Cart>> cartItemsLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> deleteSuccessLiveData = new MutableLiveData<>();
 
     public CartViewModel(Repository repository) {
         this.repository = repository;
     }
 
-    public MutableLiveData<List<Cart>> cartItemsResponse() {
+    public MutableLiveData<List<Cart>> getCartItemsResponse() {
         return cartItemsLiveData;
+    }
+
+    public MutableLiveData<Boolean> getDeleteSuccessResponse() {
+        return deleteSuccessLiveData;
     }
 
     public void getCartProducts() {
@@ -35,5 +40,20 @@ public class CartViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(cartItemsLiveData::setValue)
         );
+    }
+
+    public void removeItemFromCart(Cart product) {
+
+        disposables.add(repository.removeFromCart(product)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        deletedRow -> {
+                            if (deletedRow > 0)
+                                deleteSuccessLiveData.setValue(true);
+                            else
+                                deleteSuccessLiveData.setValue(false);
+                        }
+                ));
     }
 }

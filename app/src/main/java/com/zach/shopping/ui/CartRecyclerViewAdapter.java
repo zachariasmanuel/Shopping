@@ -5,11 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.JsonObject;
 import com.zach.shopping.R;
 import com.zach.shopping.data.db.Cart;
 
@@ -29,6 +29,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         TextView cartListItemPriceTextView;
         TextView cartListItemRatingTextView;
         ImageView cartListItemImageView;
+        Button removeButton;
 
         MyViewHolder(View v) {
             super(v);
@@ -36,6 +37,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
             cartListItemPriceTextView = v.findViewById(R.id.cart_list_item_price);
             cartListItemRatingTextView = v.findViewById(R.id.cart_list_item_rating);
             cartListItemImageView = v.findViewById(R.id.cart_list_item_image_view);
+            removeButton = v.findViewById(R.id.cart_list_remove_button);
         }
     }
 
@@ -81,10 +83,11 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
 
         Glide.with(context).load(productImageURL).centerCrop().into(holder.cartListItemImageView);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if(itemClickListener != null)
+                    itemClickListener.onRemoveClicked(cartItems.get(position));
             }
         });
     }
@@ -97,7 +100,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
     }
 
     interface ItemClickListener {
-        void onItemClicked(JsonObject product);
+        void onRemoveClicked(Cart product);
     }
 
     public void setClickListener(ItemClickListener itemClickListener) {
