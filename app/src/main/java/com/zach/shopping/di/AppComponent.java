@@ -18,7 +18,10 @@ import dagger.Component;
 @Singleton
 public interface AppComponent {
     void doInjection(ProductListFragment productListFragment);
+
     void doInjection(CartFragment cartFragment);
+
     void doInjection(ProductDetailsFragment productDetailsFragment);
+
     void doInjection(MyOrderFragment myOrderFragment);
 }

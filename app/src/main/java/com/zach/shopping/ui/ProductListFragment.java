@@ -23,6 +23,8 @@ import com.zach.shopping.utilities.Constant;
 import com.zach.shopping.viewmodels.ProductListViewModel;
 import com.zach.shopping.viewmodels.ProductListViewModelFactory;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -41,7 +43,6 @@ public class ProductListFragment extends Fragment {
     RecyclerView recyclerView;
 
     private ProductListRecyclerViewAdapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
 
     ProductListViewModel viewModel;
 
@@ -57,8 +58,7 @@ public class ProductListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.product_list_fragment, container, false);
 
-
-        progressDialog = Constant.getProgressDialog(getActivity(), "Please wait...");
+        progressDialog = Constant.getProgressDialog(getActivity(), getString(R.string.please_wait_dialog));
         ButterKnife.bind(this, root);
 
         return root;
@@ -74,27 +74,24 @@ public class ProductListFragment extends Fragment {
             ((ShoppingActivity) getActivity()).showMyOrderIcon(true);
         }
 
-        ((MyApplication) getActivity().getApplication()).getAppComponent().doInjection(this);
+        ((MyApplication) Objects.requireNonNull(getActivity()).getApplication()).getAppComponent().doInjection(this);
 
         viewModel = ViewModelProviders.of(this, productListViewModelFactory).get(ProductListViewModel.class);
         viewModel.productFetchResponse().observe(this, this::consumeResponse);
 
         recyclerView.setHasFixedSize(true);
-        layoutManager = new GridLayoutManager(getActivity(), 2);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
         mAdapter = new ProductListRecyclerViewAdapter(this);
-        mAdapter.setClickListener(new ProductListRecyclerViewAdapter.ItemClickListener() {
-            @Override
-            public void onItemClicked(JsonObject product) {
-                if (getActivity() instanceof ShoppingActivity)
-                    ((ShoppingActivity) getActivity()).loadProductDetailsFragment(product);
-            }
+        mAdapter.setClickListener(product -> {
+            if (getActivity() instanceof ShoppingActivity)
+                ((ShoppingActivity) getActivity()).loadProductDetailsFragment(product);
         });
         recyclerView.setAdapter(mAdapter);
 
 
-        if (!Constant.checkInternetConnection(getActivity())) {
-            Toast.makeText(getActivity(), "Network Error", Toast.LENGTH_SHORT).show();
+        if (!Constant.checkInternetConnection(Objects.requireNonNull(getActivity()))) {
+            Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
         } else {
             viewModel.fetchProductsFromApi();
         }
@@ -116,7 +113,7 @@ public class ProductListFragment extends Fragment {
 
             case ERROR:
                 progressDialog.dismiss();
-                Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.error, Toast.LENGTH_SHORT).show();
                 break;
 
             default:

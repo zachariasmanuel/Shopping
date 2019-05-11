@@ -6,4 +6,6 @@
 
     <color name="backgroundGrey">#E9E9E9</color>
     <color name="buttonTextWhite">#F0F0F0</color>
+    <color name="textBlack">#ff000000</color>
+
 </resources>

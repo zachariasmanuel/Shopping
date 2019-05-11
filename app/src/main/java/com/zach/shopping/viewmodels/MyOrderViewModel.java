@@ -25,7 +25,6 @@ public class MyOrderViewModel extends ViewModel {
     MyOrderViewModel(Repository repository) {
         this.repository = repository;
     }
-
     public MutableLiveData<List<MyOrder>> getOrderItemsResponse() {
         return orderItemLiveData;
     }
@@ -37,4 +36,5 @@ public class MyOrderViewModel extends ViewModel {
                 .subscribe(orderItemLiveData::setValue)
         );
     }
+
 }

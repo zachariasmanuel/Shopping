@@ -7,4 +7,16 @@
     <string name="no_rating">No Rating</string>
     <string name="your_cart_is_empty">Your cart is empty</string>
     <string name="my_order_is_empty">You haven\'t ordered anything yet</string>
+    <string name="network_error">Network Error</string>
+    <string name="error">Error</string>
+    <string name="please_wait_dialog">Please wait...</string>
+    <string name="go_to_cart_button_text">GO TO CART</string>
+    <string name="added_to_cart_snack_bar_text">Item added to cart</string>
+    <string name="add_to_cart_button_text">ADD TO CART</string>
+    <string name="my_order_action_bar_text">My Order</string>
+    <string name="cart_is_empty_snack_bar_text">Your cart is empty</string>
+    <string name="items_ordered_snack_bar_text">Items ordered</string>
+    <string name="cart_action_bar_text">Cart</string>
+    <string name="checkout_button_text">CHECKOUT</string>
+    <string name="remove_from_cart_button_text">REMOVE FROM CART</string>
 </resources>

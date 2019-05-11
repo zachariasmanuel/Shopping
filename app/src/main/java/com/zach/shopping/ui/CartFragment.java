@@ -1,6 +1,5 @@
 package com.zach.shopping.ui;
 
-import android.app.ProgressDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,11 +17,11 @@ import android.widget.TextView;
 import com.zach.shopping.MyApplication;
 import com.zach.shopping.R;
 import com.zach.shopping.data.db.Cart;
-import com.zach.shopping.utilities.Constant;
 import com.zach.shopping.viewmodels.CartViewModel;
 import com.zach.shopping.viewmodels.CartViewModelFactory;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -38,7 +37,6 @@ public class CartFragment extends Fragment {
     @Inject
     CartViewModelFactory cartViewModelFactory;
     CartViewModel viewModel;
-    ProgressDialog progressDialog;
 
     @BindView(R.id.cart_list_recycler_view)
     RecyclerView recyclerView;
@@ -50,7 +48,6 @@ public class CartFragment extends Fragment {
     TextView cartEmptyTextView;
 
     private CartRecyclerViewAdapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
 
     public static CartFragment getInstance() {
         return new CartFragment();
@@ -61,11 +58,10 @@ public class CartFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.cart_fragment, container, false);
-        progressDialog = Constant.getProgressDialog(getActivity(), "Please wait...");
         ButterKnife.bind(this, root);
 
         if ((getActivity()) != null) {
-            ((ShoppingActivity) getActivity()).setTitle("Cart");
+            ((ShoppingActivity) getActivity()).setTitle(getString(R.string.cart_action_bar_text));
             ((ShoppingActivity) getActivity()).showCartIcon(false);
             ((ShoppingActivity) getActivity()).showMyOrderIcon(true);
         }
@@ -77,11 +73,11 @@ public class CartFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ((MyApplication) getActivity().getApplication()).getAppComponent().doInjection(this);
+        ((MyApplication) Objects.requireNonNull(getActivity()).getApplication()).getAppComponent().doInjection(this);
         viewModel = ViewModelProviders.of(this, cartViewModelFactory).get(CartViewModel.class);
 
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         mAdapter = new CartRecyclerViewAdapter(this);
         recyclerView.setAdapter(mAdapter);
@@ -92,11 +88,11 @@ public class CartFragment extends Fragment {
 
         checkoutButton.setOnClickListener(view -> {
             if (mAdapter.getData().size() == 0)
-                Snackbar.make(view, "Your cart is empty", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view, R.string.cart_is_empty_snack_bar_text, Snackbar.LENGTH_SHORT).show();
             else {
                 viewModel.moveAllToMyOrder(mAdapter.getData());
                 ((ShoppingActivity) getActivity()).loadMyOrderFragment();
-                Snackbar.make(view, "Items ordered", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view, R.string.items_ordered_snack_bar_text, Snackbar.LENGTH_SHORT).show();
             }
         });
     }

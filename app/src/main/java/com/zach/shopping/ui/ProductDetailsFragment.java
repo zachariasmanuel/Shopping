@@ -22,6 +22,7 @@ import com.zach.shopping.viewmodels.ProductDetailsViewModel;
 import com.zach.shopping.viewmodels.ProductDetailsViewModelFactory;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -83,7 +84,7 @@ public class ProductDetailsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ((MyApplication) getActivity().getApplication()).getAppComponent().doInjection(this);
+        ((MyApplication) Objects.requireNonNull(getActivity()).getApplication()).getAppComponent().doInjection(this);
         viewModel = ViewModelProviders.of(this, productDetailsViewModelFactory).get(ProductDetailsViewModel.class);
         viewModel.cartItemsResponse().observe(this, this::consumeCartItemsResponse);
 
@@ -126,8 +127,8 @@ public class ProductDetailsFragment extends Fragment {
                 cart.description = productDescription;
                 viewModel.addToCart(cart);
                 isInCart = true;
-                addToCartButton.setText("GO TO CART");
-                Snackbar.make(view, "Item added to cart", Snackbar.LENGTH_SHORT).show();
+                addToCartButton.setText(R.string.go_to_cart_button_text);
+                Snackbar.make(view, R.string.added_to_cart_snack_bar_text, Snackbar.LENGTH_SHORT).show();
             } else {
                 ((ShoppingActivity) getActivity()).loadCartFragment();
             }
@@ -140,7 +141,6 @@ public class ProductDetailsFragment extends Fragment {
     }
 
     private void consumeCartItemsResponse(List<Cart> cartItems) {
-        System.out.println("Size - " + cartItems.size());
         isInCart = false;
         for (Cart cart : cartItems) {
             if (cart.uid == product.get("id").getAsInt()) {
@@ -150,9 +150,9 @@ public class ProductDetailsFragment extends Fragment {
         }
 
         if (isInCart)
-            addToCartButton.setText("GO TO CART");
+            addToCartButton.setText(R.string.go_to_cart_button_text);
         else
-            addToCartButton.setText("ADD TO CART");
+            addToCartButton.setText(R.string.add_to_cart_button_text);
 
     }
 

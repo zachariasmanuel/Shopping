@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.ShoppingActivity">
 
-
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="0dp"

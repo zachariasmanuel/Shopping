@@ -83,7 +83,6 @@ public class UtilsModule {
     @Singleton
     AppDatabase getAppDatabase(Context context) {
         return Room.databaseBuilder(context, AppDatabase.class, "ShoppingDB")
-                //.addMigrations(AppDatabase.MIGRATION_1_2)
                 .build();
     }
 

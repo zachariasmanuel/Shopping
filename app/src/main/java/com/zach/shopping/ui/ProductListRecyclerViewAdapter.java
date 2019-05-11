@@ -18,9 +18,9 @@ import com.zach.shopping.R;
  * Created by zac on 10-May-2019
  */
 public class ProductListRecyclerViewAdapter extends RecyclerView.Adapter<ProductListRecyclerViewAdapter.MyViewHolder> {
-    JsonArray products;
-    ProductListFragment context;
-    ItemClickListener itemClickListener;
+    private JsonArray products;
+    private ProductListFragment context;
+    private ItemClickListener itemClickListener;
 
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -39,7 +39,7 @@ public class ProductListRecyclerViewAdapter extends RecyclerView.Adapter<Product
         }
     }
 
-    public ProductListRecyclerViewAdapter(ProductListFragment context) {
+    ProductListRecyclerViewAdapter(ProductListFragment context) {
         this.context = context;
     }
 
@@ -48,14 +48,14 @@ public class ProductListRecyclerViewAdapter extends RecyclerView.Adapter<Product
         notifyDataSetChanged();
     }
 
+    @NonNull
     @Override
-    public ProductListRecyclerViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
+    public ProductListRecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
                                                                           int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.product_list_item, parent, false);
 
-        MyViewHolder dataObjectHolder = new MyViewHolder(view);
-        return dataObjectHolder;
+        return new MyViewHolder(view);
     }
 
     @Override
@@ -81,12 +81,9 @@ public class ProductListRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
         Glide.with(context).load(productImageURL).centerCrop().into(holder.productListItemImageView);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (itemClickListener != null)
-                    itemClickListener.onItemClicked(products.get(position).getAsJsonObject());
-            }
+        holder.itemView.setOnClickListener(view -> {
+            if (itemClickListener != null)
+                itemClickListener.onItemClicked(products.get(position).getAsJsonObject());
         });
     }
 
@@ -101,7 +98,7 @@ public class ProductListRecyclerViewAdapter extends RecyclerView.Adapter<Product
         void onItemClicked(JsonObject product);
     }
 
-    public void setClickListener(ItemClickListener itemClickListener) {
+    void setClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }
 }

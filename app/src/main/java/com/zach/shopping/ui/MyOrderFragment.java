@@ -19,6 +19,7 @@ import com.zach.shopping.viewmodels.MyOrderViewModel;
 import com.zach.shopping.viewmodels.MyOrderViewModelFactory;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -43,7 +44,6 @@ public class MyOrderFragment extends Fragment {
     TextView myOrderEmptyTextView;
 
     private MyOrderListRecyclerViewAdapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
 
     public static MyOrderFragment getInstance() {
         return new MyOrderFragment();
@@ -56,7 +56,7 @@ public class MyOrderFragment extends Fragment {
         ButterKnife.bind(this, root);
 
         if ((getActivity()) != null) {
-            ((ShoppingActivity) getActivity()).setTitle("My Order");
+            ((ShoppingActivity) getActivity()).setTitle(getString(R.string.my_order_action_bar_text));
             ((ShoppingActivity) getActivity()).showCartIcon(true);
             ((ShoppingActivity) getActivity()).showMyOrderIcon(false);
         }
@@ -68,11 +68,11 @@ public class MyOrderFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ((MyApplication) getActivity().getApplication()).getAppComponent().doInjection(this);
+        ((MyApplication) Objects.requireNonNull(getActivity()).getApplication()).getAppComponent().doInjection(this);
 
         viewModel = ViewModelProviders.of(this, myOrderViewModelFactory).get(MyOrderViewModel.class);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         mAdapter = new MyOrderListRecyclerViewAdapter(this);
         recyclerView.setAdapter(mAdapter);
@@ -87,6 +87,5 @@ public class MyOrderFragment extends Fragment {
             myOrderEmptyTextView.setVisibility(View.GONE);
         mAdapter.setData(myOrders);
     }
-
 }
 

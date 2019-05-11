@@ -2,6 +2,7 @@ package com.zach.shopping.viewmodels;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.util.Log;
 
 import com.zach.shopping.data.Repository;
 import com.zach.shopping.data.db.Cart;
@@ -20,6 +21,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class CartViewModel extends ViewModel {
 
+    private static final String TAG = "CartViewModel";
     private Repository repository;
     private final CompositeDisposable disposables = new CompositeDisposable();
     private final MutableLiveData<List<Cart>> cartItemsLiveData = new MutableLiveData<>();
@@ -28,11 +30,9 @@ public class CartViewModel extends ViewModel {
     CartViewModel(Repository repository) {
         this.repository = repository;
     }
-
     public MutableLiveData<List<Cart>> getCartItemsResponse() {
         return cartItemsLiveData;
     }
-
     public MutableLiveData<Boolean> getDeleteSuccessResponse() {
         return deleteSuccessLiveData;
     }
@@ -68,9 +68,7 @@ public class CartViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        success -> {
-                            System.out.println("Removed from cart - " + success);
-                        }
+                        success -> Log.d(TAG, "Removed from cart - " + success)
                 ));
 
         for (Cart cart : cartData) {
@@ -87,10 +85,9 @@ public class CartViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        success -> {
-                            System.out.println("Added to order - " + success.size());
-                        }
+                        count -> Log.d(TAG, "Added to Order - " + count)
                 ));
     }
+
 }
 

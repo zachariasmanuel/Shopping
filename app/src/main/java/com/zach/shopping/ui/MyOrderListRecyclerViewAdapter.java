@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.zach.shopping.R;
-import com.zach.shopping.data.db.Cart;
 import com.zach.shopping.data.db.MyOrder;
 
 import java.util.List;
@@ -20,9 +19,8 @@ import java.util.List;
  * Created by zac on 10-May-2019
  */
 public class MyOrderListRecyclerViewAdapter extends RecyclerView.Adapter<MyOrderListRecyclerViewAdapter.MyViewHolder> {
-    List<MyOrder> myOrders;
-    MyOrderFragment context;
-    ItemClickListener itemClickListener;
+    private List<MyOrder> myOrders;
+    private MyOrderFragment context;
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -40,7 +38,7 @@ public class MyOrderListRecyclerViewAdapter extends RecyclerView.Adapter<MyOrder
         }
     }
 
-    public MyOrderListRecyclerViewAdapter(MyOrderFragment context) {
+    MyOrderListRecyclerViewAdapter(MyOrderFragment context) {
         this.context = context;
     }
 
@@ -49,15 +47,14 @@ public class MyOrderListRecyclerViewAdapter extends RecyclerView.Adapter<MyOrder
         notifyDataSetChanged();
     }
 
-
+    @NonNull
     @Override
-    public MyOrderListRecyclerViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
+    public MyOrderListRecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
                                                                           int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.my_order_list_item, parent, false);
 
-        MyOrderListRecyclerViewAdapter.MyViewHolder dataObjectHolder = new MyOrderListRecyclerViewAdapter.MyViewHolder(view);
-        return dataObjectHolder;
+        return new MyViewHolder(view);
     }
 
     @Override
@@ -89,13 +86,5 @@ public class MyOrderListRecyclerViewAdapter extends RecyclerView.Adapter<MyOrder
         if (myOrders == null)
             return 0;
         return myOrders.size();
-    }
-
-    interface ItemClickListener {
-        void onRemoveClicked(Cart product);
-    }
-
-    public void setClickListener(ItemClickListener itemClickListener) {
-        this.itemClickListener = itemClickListener;
     }
 }
