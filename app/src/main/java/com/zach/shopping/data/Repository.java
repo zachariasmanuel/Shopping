@@ -1,6 +1,7 @@
 package com.zach.shopping.data;
 
 import com.google.gson.JsonElement;
+import com.zach.shopping.data.api.ApiCallInterface;
 import com.zach.shopping.data.db.AppDatabase;
 import com.zach.shopping.data.db.Cart;
 import com.zach.shopping.data.db.MyOrder;
@@ -11,6 +12,7 @@ import io.reactivex.Maybe;
 import io.reactivex.Observable;
 
 /**
+ * Primary point of all data access including API and local DB
  * Created by zac on 09-May-2019
  */
 public class Repository {

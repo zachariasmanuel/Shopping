@@ -10,6 +10,7 @@ import java.util.List;
 import io.reactivex.Maybe;
 
 /**
+ * Dao of Room DB
  * Created by zac on 09-May-2019
  */
 @Dao

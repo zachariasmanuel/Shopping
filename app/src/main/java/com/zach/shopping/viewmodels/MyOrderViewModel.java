@@ -13,6 +13,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
+ * View Model class for My Order View
  * Created by zac on 10-May-2019
  */
 public class MyOrderViewModel extends ViewModel {
@@ -21,7 +22,7 @@ public class MyOrderViewModel extends ViewModel {
     private final CompositeDisposable disposables = new CompositeDisposable();
     private final MutableLiveData<List<MyOrder>> orderItemLiveData = new MutableLiveData<>();
 
-    public MyOrderViewModel(Repository repository) {
+    MyOrderViewModel(Repository repository) {
         this.repository = repository;
     }
 

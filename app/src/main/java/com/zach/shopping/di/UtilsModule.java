@@ -8,9 +8,9 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.zach.shopping.data.ApiCallInterface;
+import com.zach.shopping.data.api.ApiCallInterface;
 import com.zach.shopping.data.Repository;
-import com.zach.shopping.data.Urls;
+import com.zach.shopping.data.api.Urls;
 import com.zach.shopping.data.db.AppDatabase;
 import com.zach.shopping.viewmodels.CartViewModelFactory;
 import com.zach.shopping.viewmodels.ProductListViewModelFactory;
@@ -27,6 +27,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
+ * Module class for Dagger - Dependency injection
  * Created by zac on 09-May-2019
  */
 

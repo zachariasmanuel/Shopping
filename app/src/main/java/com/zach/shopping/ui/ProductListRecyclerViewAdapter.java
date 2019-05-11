@@ -14,6 +14,7 @@ import com.google.gson.JsonObject;
 import com.zach.shopping.R;
 
 /**
+ * Recycler View Adapter for Product List recycler view
  * Created by zac on 10-May-2019
  */
 public class ProductListRecyclerViewAdapter extends RecyclerView.Adapter<ProductListRecyclerViewAdapter.MyViewHolder> {

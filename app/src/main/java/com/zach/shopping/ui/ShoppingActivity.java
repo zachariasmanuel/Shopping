@@ -11,6 +11,10 @@ import com.google.gson.JsonObject;
 import com.zach.shopping.R;
 import com.zach.shopping.utilities.ActivityUtils;
 
+/**
+ * Activity to hold all the fragments
+ * Created by zac on 09-May-2019
+ */
 public class ShoppingActivity extends AppCompatActivity {
 
     ProductListFragment productListFragment;

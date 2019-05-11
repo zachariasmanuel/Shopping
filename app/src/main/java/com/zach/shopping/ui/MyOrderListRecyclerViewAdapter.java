@@ -16,6 +16,7 @@ import com.zach.shopping.data.db.MyOrder;
 import java.util.List;
 
 /**
+ * Recycler View Adapter for My Order list recycler view
  * Created by zac on 10-May-2019
  */
 public class MyOrderListRecyclerViewAdapter extends RecyclerView.Adapter<MyOrderListRecyclerViewAdapter.MyViewHolder> {

@@ -13,6 +13,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
+ * View Model class for Product Details view
  * Created by zac on 10-May-2019
  */
 public class ProductDetailsViewModel extends ViewModel {
@@ -21,7 +22,7 @@ public class ProductDetailsViewModel extends ViewModel {
     private final CompositeDisposable disposables = new CompositeDisposable();
     private final MutableLiveData<List<Cart>> cartItemsLiveData = new MutableLiveData<>();
 
-    public ProductDetailsViewModel(Repository repository) {
+    ProductDetailsViewModel(Repository repository) {
         this.repository = repository;
     }
 
@@ -46,4 +47,5 @@ public class ProductDetailsViewModel extends ViewModel {
                         productsIds -> System.out.println(productsIds.size())
                 ));
     }
+
 }

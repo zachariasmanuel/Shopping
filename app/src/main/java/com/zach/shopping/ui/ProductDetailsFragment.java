@@ -29,6 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * Fragment to show details of a particular product
  * Created by zac on 10-May-2019
  */
 public class ProductDetailsFragment extends Fragment {

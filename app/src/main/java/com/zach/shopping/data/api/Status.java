@@ -1,6 +1,7 @@
-package com.zach.shopping.data;
+package com.zach.shopping.data.api;
 
 /**
+ * Status for api response
  * Created by zac on 09-May-2019
  */
 public enum Status {

@@ -3,7 +3,7 @@ package com.zach.shopping.viewmodels;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.zach.shopping.data.ApiResponse;
+import com.zach.shopping.data.api.ProductFetchResponse;
 import com.zach.shopping.data.Repository;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -11,66 +11,35 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
+ * View Model class for Product Details view
  * Created by zac on 09-May-2019
  */
 public class ProductListViewModel extends ViewModel {
 
     private Repository repository;
     private final CompositeDisposable disposables = new CompositeDisposable();
-    private final MutableLiveData<ApiResponse> responseLiveData = new MutableLiveData<>();
+    private final MutableLiveData<ProductFetchResponse> responseLiveData = new MutableLiveData<>();
 
-
-    public ProductListViewModel(Repository repository) {
+    ProductListViewModel(Repository repository) {
         this.repository = repository;
     }
 
-    public MutableLiveData<ApiResponse> productFetchResponse() {
+    public MutableLiveData<ProductFetchResponse> productFetchResponse() {
         return responseLiveData;
     }
-
 
     public void fetchProductsFromApi() {
 
         disposables.add(repository.fetchProduct()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe((d) -> responseLiveData.setValue(ApiResponse.loading()))
+                .doOnSubscribe((d) -> responseLiveData.setValue(ProductFetchResponse.loading()))
                 .subscribe(
-                        result -> responseLiveData.setValue(ApiResponse.success(result)),
-                        throwable -> responseLiveData.setValue(ApiResponse.error(throwable))
+                        result -> responseLiveData.setValue(ProductFetchResponse.success(result)),
+                        throwable -> responseLiveData.setValue(ProductFetchResponse.error(throwable))
                 ));
 
     }
-
-//    public void fetchProductFromDB() {
-//
-////        disposables.add(repository.fetchProductsFromDB()
-////                .subscribeOn(Schedulers.io())
-////                .observeOn(AndroidSchedulers.mainThread())
-////                .subscribe(
-////                        products -> System.out.println("Name - "+products.get(0).name)
-////                ));
-//    }
-//
-//
-//    public void addToCart() {
-//
-//        disposables.add(repository.addToCart()
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(
-//                        products -> System.out.println(products.size())
-//                ));
-//    }
-//
-//
-//
-//    public void getOrderedProducts(){
-//
-//    }
-
-
-
 
     @Override
     protected void onCleared() {

@@ -15,6 +15,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
+ * View Model class for Cart View
  * Created by zac on 10-May-2019
  */
 public class CartViewModel extends ViewModel {
@@ -24,7 +25,7 @@ public class CartViewModel extends ViewModel {
     private final MutableLiveData<List<Cart>> cartItemsLiveData = new MutableLiveData<>();
     private final MutableLiveData<Boolean> deleteSuccessLiveData = new MutableLiveData<>();
 
-    public CartViewModel(Repository repository) {
+    CartViewModel(Repository repository) {
         this.repository = repository;
     }
 

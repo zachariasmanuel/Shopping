@@ -5,6 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 /**
+ * Room entity class - Cart table
  * Created by zac on 09-May-2019
  */
 

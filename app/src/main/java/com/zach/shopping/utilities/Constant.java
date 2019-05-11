@@ -17,7 +17,6 @@ public class Constant {
         return progressDialog;
     }
 
-
     public static boolean checkInternetConnection(Context context) {
         ConnectivityManager connectivity = (ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -35,6 +34,5 @@ public class Constant {
         }
         return false;
     }
-
 }
 

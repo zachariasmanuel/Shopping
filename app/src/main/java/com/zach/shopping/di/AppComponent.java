@@ -10,6 +10,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 /**
+ * Component class for Dagger - Dependency Injection
  * Created by zac on 09-May-2019
  */
 

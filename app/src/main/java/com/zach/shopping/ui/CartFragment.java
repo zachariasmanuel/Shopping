@@ -30,6 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * Fragment to show Cart list
  * Created by zac on 09-May-2019
  */
 public class CartFragment extends Fragment {

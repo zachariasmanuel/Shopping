@@ -9,6 +9,7 @@ import com.zach.shopping.data.Repository;
 import javax.inject.Inject;
 
 /**
+ * View Model Factory to create My Order View Model
  * Created by zac on 10-May-2019
  */
 public class MyOrderViewModelFactory implements ViewModelProvider.Factory{

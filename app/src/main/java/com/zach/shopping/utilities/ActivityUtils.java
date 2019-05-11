@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 /**
+ * Class to manage the fragment transactions in an Activity
  * Created by zac on 09-May-2019
  */
 public class ActivityUtils {
@@ -16,8 +17,7 @@ public class ActivityUtils {
         transaction.commit();
     }
 
-    public static void replaceFragmentToActivity(FragmentManager fragmentManager,
-                                                 Fragment fragment, int frameId) {
+    public static void replaceFragmentToActivity(FragmentManager fragmentManager, Fragment fragment, int frameId) {
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(frameId, fragment);

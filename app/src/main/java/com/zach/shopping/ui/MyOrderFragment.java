@@ -26,6 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * Fragment to show My Order List
  * Created by zac on 10-May-2019
  */
 public class MyOrderFragment extends Fragment {

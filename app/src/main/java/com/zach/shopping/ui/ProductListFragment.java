@@ -18,7 +18,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.zach.shopping.MyApplication;
 import com.zach.shopping.R;
-import com.zach.shopping.data.ApiResponse;
+import com.zach.shopping.data.api.ProductFetchResponse;
 import com.zach.shopping.utilities.Constant;
 import com.zach.shopping.viewmodels.ProductListViewModel;
 import com.zach.shopping.viewmodels.ProductListViewModelFactory;
@@ -29,6 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * Fragment to show list of available products
  * Created by zac on 09-May-2019
  */
 public class ProductListFragment extends Fragment {
@@ -99,9 +100,9 @@ public class ProductListFragment extends Fragment {
         }
     }
 
-    private void consumeResponse(ApiResponse apiResponse) {
+    private void consumeResponse(ProductFetchResponse productFetchResponse) {
 
-        switch (apiResponse.status) {
+        switch (productFetchResponse.status) {
 
             case LOADING:
                 progressDialog.show();
@@ -109,7 +110,7 @@ public class ProductListFragment extends Fragment {
 
             case SUCCESS:
                 progressDialog.dismiss();
-                renderSuccessResponse(apiResponse.data);
+                renderSuccessResponse(productFetchResponse.data);
 
                 break;
 

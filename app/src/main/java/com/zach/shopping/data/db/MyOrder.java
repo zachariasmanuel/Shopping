@@ -5,6 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 /**
+ * Room entity class - MyOrder table
  * Created by zac on 10-May-2019
  */
 @Entity

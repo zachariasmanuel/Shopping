@@ -8,6 +8,7 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
+ * Module class for Dagger - Dependency injection
  * Created by zac on 09-May-2019
  */
 

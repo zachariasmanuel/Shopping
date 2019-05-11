@@ -16,6 +16,7 @@ import com.zach.shopping.data.db.Cart;
 import java.util.List;
 
 /**
+ * Recycler View Adapter for Cart list recycler view
  * Created by zac on 10-May-2019
  */
 public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerViewAdapter.MyViewHolder> {
