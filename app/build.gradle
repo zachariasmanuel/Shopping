@@ -41,17 +41,15 @@ dependencies {
     /* Test */
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
 
+    /*Dagger Test Component */
     androidTestImplementation "com.google.dagger:dagger:2.22.1"
     androidTestAnnotationProcessor 'com.google.dagger:dagger-compiler:2.22.1'
-
     testImplementation "com.google.dagger:dagger:2.22.1"
     testAnnotationProcessor "com.google.dagger:dagger-compiler:2.22.1"
-
-    testImplementation 'org.mockito:mockito-core:2.25.0'
-    // required if you want to use Mockito for Android tests
-    androidTestImplementation 'org.mockito:mockito-android:2.7.22'
 
     /* Butter Knife */
     implementation 'com.jakewharton:butterknife:8.8.1'
