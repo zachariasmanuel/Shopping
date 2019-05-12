@@ -16,6 +16,7 @@ import org.junit.runner.RunWith;
 import javax.inject.Inject;
 
 /**
+ * Test class for testing the API calls
  * Created by zac on 11-May-2019
  */
 

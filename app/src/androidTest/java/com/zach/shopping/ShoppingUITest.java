@@ -19,6 +19,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 /**
+ * UI Test class for testing the UI flow
  * Created by zac on 12-May-2019
  */
 @RunWith(AndroidJUnit4.class)

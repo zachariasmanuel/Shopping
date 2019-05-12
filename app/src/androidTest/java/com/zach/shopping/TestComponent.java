@@ -9,6 +9,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 /**
+ * Test component class for Dagger dependency injection
  * Created by zac on 11-May-2019
  */
 @Singleton

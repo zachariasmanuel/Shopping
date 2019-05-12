@@ -27,6 +27,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**
+ * Test class for testing the basic database operations
  * Created by zac on 11-May-2019
  */
 
@@ -48,12 +49,12 @@ public class DBOperationsTest {
 
         final CompositeDisposable disposables = new CompositeDisposable();
         Cart cart = new Cart();
-        cart.name = "Iphone";
+        cart.name = "OnePlus 6";
         cart.uid = getRandomIntInclusive(2, 10000);
         cart.description = "Lorem";
-        cart.rating = "4";
-        cart.imageURL = "www.google.com";
-        cart.price = "10000";
+        cart.rating = "4.5";
+        cart.imageURL = "https://i.gadgets360cdn.com/products/large/1526490365_635_oneplus_6.jpg";
+        cart.price = "40000";
 
         disposables.add(repository.addToCart(cart)
                 .subscribeOn(Schedulers.io())
@@ -76,12 +77,12 @@ public class DBOperationsTest {
     public void testCartRemoval() {
         final CompositeDisposable disposables = new CompositeDisposable();
         Cart cart = new Cart();
-        cart.name = "Iphone";
+        cart.name = "OnePlus 6";
         cart.uid = getRandomIntInclusive(2, 10000);
         cart.description = "Lorem";
-        cart.rating = "4";
-        cart.imageURL = "www.google.com";
-        cart.price = "10000";
+        cart.rating = "4.5";
+        cart.imageURL = "https://i.gadgets360cdn.com/products/large/1526490365_635_oneplus_6.jpg";
+        cart.price = "40000";
 
         disposables.add(repository.addToCart(cart)
                 .subscribeOn(Schedulers.io())
@@ -111,12 +112,12 @@ public class DBOperationsTest {
         final CompositeDisposable disposables = new CompositeDisposable();
         List<MyOrder> myOrderList = new ArrayList<>();
         MyOrder order = new MyOrder();
-        order.name = "Iphone";
+        order.name = "OnePlus 6";
         order.productId = getRandomIntInclusive(2, 100000);
         order.description = "Lorem";
-        order.rating = "4";
-        order.imageURL = "www.google.com";
-        order.price = "10000";
+        order.rating =  "4.5";
+        order.imageURL = "https://i.gadgets360cdn.com/products/large/1526490365_635_oneplus_6.jpg";
+        order.price = "40000";
         myOrderList.add(order);
 
         disposables.add(repository.addToOrder(myOrderList)
