@@ -5,12 +5,16 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.zach.shopping.data.Repository;
 import com.zach.shopping.data.db.Cart;
+import com.zach.shopping.data.db.MyOrder;
 import com.zach.shopping.di.AppModule;
 import com.zach.shopping.di.UtilsModule;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -30,16 +34,12 @@ import static org.junit.Assert.fail;
 @MediumTest
 public class DBOperationsTest {
 
-    private static final String TAG = "DBOperationsTest";
-
-    TestComponent testComponent;
-
     @Inject
     Repository repository;
 
     @Before
     public void setUp() {
-        testComponent = DaggerTestComponent.builder().appModule(new AppModule(getInstrumentation().getTargetContext().getApplicationContext())).utilsModule(new UtilsModule()).build();
+        TestComponent testComponent = DaggerTestComponent.builder().appModule(new AppModule(getInstrumentation().getTargetContext().getApplicationContext())).utilsModule(new UtilsModule()).build();
         testComponent.inject(this);
     }
 
@@ -58,51 +58,48 @@ public class DBOperationsTest {
         disposables.add(repository.addToCart(cart)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
+                .subscribe(reply -> disposables.add(repository.getCartItems()
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(data -> {
+                                    if (data.size() > 0)
+                                        assertTrue(true);
+                                    else
+                                        fail();
+                                })
+                        )
                 ));
-
-        disposables.add(repository.getCartItems()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(data -> {
-                    if (data.size() > 0)
-                        assertTrue(true);
-                    else
-                        fail();
-                })
-        );
     }
 
     @Test
     public void testMyOrderAddition() {
 
         final CompositeDisposable disposables = new CompositeDisposable();
-        Cart cart = new Cart();
-        cart.name = "Iphone";
-        cart.uid = getRandomIntInclusive(2, 100000);
-        cart.description = "Lorem";
-        cart.rating = "4";
-        cart.imageURL = "www.google.com";
-        cart.price = "10000";
+        List<MyOrder> myOrderList = new ArrayList<>();
+        MyOrder order = new MyOrder();
+        order.name = "Iphone";
+        order.productId = getRandomIntInclusive(2, 100000);
+        order.description = "Lorem";
+        order.rating = "4";
+        order.imageURL = "www.google.com";
+        order.price = "10000";
+        myOrderList.add(order);
 
-        disposables.add(repository.addToCart(cart)
+        disposables.add(repository.addToOrder(myOrderList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                ));
-
-        disposables.add(repository.getCartItems()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(data -> {
-                    if (data.size() > 0)
-                        assertTrue(true);
-                    else
-                        fail();
-                })
-        );
+                .subscribe(reply -> {
+                    disposables.add(repository.getOrders()
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(data -> {
+                                if (data.size() > 0)
+                                    assertTrue(true);
+                                else
+                                    fail();
+                            })
+                    );
+                }));
     }
 
     private int getRandomIntInclusive(int min, int max) {
