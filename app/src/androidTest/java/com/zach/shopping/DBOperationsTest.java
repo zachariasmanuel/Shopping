@@ -49,7 +49,7 @@ public class DBOperationsTest {
         final CompositeDisposable disposables = new CompositeDisposable();
         Cart cart = new Cart();
         cart.name = "Iphone";
-        cart.uid = getRandomIntInclusive(2, 100000);
+        cart.uid = getRandomIntInclusive(2, 10000);
         cart.description = "Lorem";
         cart.rating = "4";
         cart.imageURL = "www.google.com";
@@ -66,6 +66,40 @@ public class DBOperationsTest {
                                         assertTrue(true);
                                     else
                                         fail();
+                                    testCartRemoval();
+                                })
+                        )
+                ));
+    }
+
+
+    public void testCartRemoval() {
+        final CompositeDisposable disposables = new CompositeDisposable();
+        Cart cart = new Cart();
+        cart.name = "Iphone";
+        cart.uid = getRandomIntInclusive(2, 10000);
+        cart.description = "Lorem";
+        cart.rating = "4";
+        cart.imageURL = "www.google.com";
+        cart.price = "10000";
+
+        disposables.add(repository.addToCart(cart)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(reply -> disposables.add(repository.removeAllFromCart()
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(success -> {
+                                    disposables.add(repository.getCartItems()
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .subscribe(data -> {
+                                                if (data.size() == 0)
+                                                    assertTrue(true);
+                                                else
+                                                    fail();
+                                            })
+                                    );
                                 })
                         )
                 ));
