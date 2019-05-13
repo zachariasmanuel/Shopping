@@ -1,5 +1,5 @@
 # Shopping Android App
-A sample Android application developed in Java to show the best usage of the following =
+A sample Android application developed in Java to show the best usage of the following
 
 - MVVM architecture
 - RxJava
@@ -16,7 +16,7 @@ A sample Android application developed in Java to show the best usage of the fol
 
 - **Product List Fragment** - The products are fetched from an API and shows it in a recycler view.
 
-- **Product detail fragment** - Shows the details of a product. User can add it to the cart from this screen
+- **Product Detail Fragment** - Shows the details of a product. User can add it to the cart from this screen
 
 - **Cart Fragment** - It shows the items in the cart. User can remove the items from the cart or checkout the products
 
