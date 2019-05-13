@@ -73,8 +73,8 @@ public class ProductDetailsFragment extends Fragment {
 
         if ((getActivity()) != null) {
             ((ShoppingActivity) getActivity()).setTitle("");
-            ((ShoppingActivity) getActivity()).showCartIcon(true);
-            ((ShoppingActivity) getActivity()).showMyOrderIcon(true);
+            ((ShoppingActivity) getActivity()).showCartMenuIcon(true);
+            ((ShoppingActivity) getActivity()).showMyOrderMenuIcon(true);
         }
 
         return root;

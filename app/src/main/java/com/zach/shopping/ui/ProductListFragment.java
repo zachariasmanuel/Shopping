@@ -19,7 +19,7 @@ import com.google.gson.JsonObject;
 import com.zach.shopping.MyApplication;
 import com.zach.shopping.R;
 import com.zach.shopping.data.api.ProductFetchResponse;
-import com.zach.shopping.utilities.Constant;
+import com.zach.shopping.utilities.UISupport;
 import com.zach.shopping.viewmodels.ProductListViewModel;
 import com.zach.shopping.viewmodels.ProductListViewModelFactory;
 
@@ -58,7 +58,7 @@ public class ProductListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.product_list_fragment, container, false);
 
-        progressDialog = Constant.getProgressDialog(getActivity(), getString(R.string.please_wait_dialog));
+        progressDialog = UISupport.getProgressDialog(getActivity(), getString(R.string.please_wait_dialog));
         ButterKnife.bind(this, root);
 
         return root;
@@ -69,9 +69,9 @@ public class ProductListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         if ((getActivity()) != null) {
-            ((ShoppingActivity) getActivity()).setTitle("Shopping List");
-            ((ShoppingActivity) getActivity()).showCartIcon(true);
-            ((ShoppingActivity) getActivity()).showMyOrderIcon(true);
+            ((ShoppingActivity) getActivity()).setTitle(getString(R.string.shopping_list_action_bar_text));
+            ((ShoppingActivity) getActivity()).showCartMenuIcon(true);
+            ((ShoppingActivity) getActivity()).showMyOrderMenuIcon(true);
         }
 
         ((MyApplication) Objects.requireNonNull(getActivity()).getApplication()).getAppComponent().doInjection(this);
@@ -90,7 +90,7 @@ public class ProductListFragment extends Fragment {
         recyclerView.setAdapter(mAdapter);
 
 
-        if (!Constant.checkInternetConnection(Objects.requireNonNull(getActivity()))) {
+        if (!UISupport.checkInternetConnection(Objects.requireNonNull(getActivity()))) {
             Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
         } else {
             viewModel.fetchProductsFromApi();

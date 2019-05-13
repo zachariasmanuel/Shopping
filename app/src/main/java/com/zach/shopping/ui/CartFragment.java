@@ -62,8 +62,8 @@ public class CartFragment extends Fragment {
 
         if ((getActivity()) != null) {
             ((ShoppingActivity) getActivity()).setTitle(getString(R.string.cart_action_bar_text));
-            ((ShoppingActivity) getActivity()).showCartIcon(false);
-            ((ShoppingActivity) getActivity()).showMyOrderIcon(true);
+            ((ShoppingActivity) getActivity()).showCartMenuIcon(false);
+            ((ShoppingActivity) getActivity()).showMyOrderMenuIcon(true);
         }
 
         return root;

@@ -57,8 +57,8 @@ public class MyOrderFragment extends Fragment {
 
         if ((getActivity()) != null) {
             ((ShoppingActivity) getActivity()).setTitle(getString(R.string.my_order_action_bar_text));
-            ((ShoppingActivity) getActivity()).showCartIcon(true);
-            ((ShoppingActivity) getActivity()).showMyOrderIcon(false);
+            ((ShoppingActivity) getActivity()).showCartMenuIcon(true);
+            ((ShoppingActivity) getActivity()).showMyOrderMenuIcon(false);
         }
 
         return root;

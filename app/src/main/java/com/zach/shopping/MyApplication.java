@@ -9,6 +9,7 @@ import com.zach.shopping.di.DaggerAppComponent;
 import com.zach.shopping.di.UtilsModule;
 
 /**
+ * Application class of Shopping App
  * Created by zac on 09-May-2019
  */
 public class MyApplication extends Application {

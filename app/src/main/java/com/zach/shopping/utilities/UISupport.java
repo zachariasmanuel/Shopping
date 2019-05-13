@@ -6,9 +6,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 /**
+ * Supporting class for UI
  * Created by zac on 09-May-2019
  */
-public class Constant {
+public class UISupport {
 
     public static ProgressDialog getProgressDialog(Context context, String msg) {
         ProgressDialog progressDialog = new ProgressDialog(context);
@@ -25,8 +26,8 @@ public class Constant {
         } else {
             NetworkInfo[] info = connectivity.getAllNetworkInfo();
             if (info != null) {
-                for (int i = 0; i < info.length; i++) {
-                    if (info[i].getState() == NetworkInfo.State.CONNECTED) {
+                for (NetworkInfo anInfo : info) {
+                    if (anInfo.getState() == NetworkInfo.State.CONNECTED) {
                         return true;
                     }
                 }

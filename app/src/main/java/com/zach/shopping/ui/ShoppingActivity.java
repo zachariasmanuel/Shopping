@@ -110,12 +110,12 @@ public class ShoppingActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(title);
     }
 
-    public void showCartIcon(boolean status) {
+    public void showCartMenuIcon(boolean status) {
         if (cartMenuItem != null)
             cartMenuItem.setVisible(status);
     }
 
-    public void showMyOrderIcon(boolean status) {
+    public void showMyOrderMenuIcon(boolean status) {
         if (myOrderMenuItem != null)
             myOrderMenuItem.setVisible(status);
     }

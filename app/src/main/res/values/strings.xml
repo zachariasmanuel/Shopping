@@ -19,4 +19,5 @@
     <string name="cart_action_bar_text">Cart</string>
     <string name="checkout_button_text">CHECKOUT</string>
     <string name="remove_from_cart_button_text">REMOVE FROM CART</string>
+    <string name="shopping_list_action_bar_text">Shopping List</string>
 </resources>
