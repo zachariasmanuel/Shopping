@@ -45,6 +45,10 @@ public class DBOperationsTest {
     }
 
     @Test
+    public void testCartOperations() {
+        testCartAddition();
+    }
+
     public void testCartAddition() {
 
         final CompositeDisposable disposables = new CompositeDisposable();
@@ -67,14 +71,14 @@ public class DBOperationsTest {
                                         assertTrue(true);
                                     else
                                         fail();
-                                    testCartRemoval();
+                                    testCartRemovalAll();
                                 })
                         )
                 ));
+
     }
 
-
-    public void testCartRemoval() {
+    public void testCartRemovalAll() {
         final CompositeDisposable disposables = new CompositeDisposable();
         Cart cart = new Cart();
         cart.name = "OnePlus 6";
@@ -90,24 +94,53 @@ public class DBOperationsTest {
                 .subscribe(reply -> disposables.add(repository.removeAllFromCart()
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(success -> {
-                                    disposables.add(repository.getCartItems()
-                                            .subscribeOn(Schedulers.io())
-                                            .observeOn(AndroidSchedulers.mainThread())
-                                            .subscribe(data -> {
-                                                if (data.size() == 0)
-                                                    assertTrue(true);
-                                                else
-                                                    fail();
-                                            })
-                                    );
-                                })
+                                .subscribe(success -> disposables.add(repository.getCartItems()
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(data -> {
+                                            if (data.size() == 0)
+                                                assertTrue(true);
+                                            else
+                                                fail();
+                                            testCartRemoveOne();
+                                        })
+                                ))
+                        )
+                ));
+    }
+
+    public void testCartRemoveOne() {
+        final CompositeDisposable disposables = new CompositeDisposable();
+        Cart cart = new Cart();
+        cart.name = "OnePlus 6";
+        cart.uid = getRandomIntInclusive(2, 10000);
+        cart.description = "Lorem";
+        cart.rating = "4.5";
+        cart.imageURL = "https://i.gadgets360cdn.com/products/large/1526490365_635_oneplus_6.jpg";
+        cart.price = "40000";
+
+        disposables.add(repository.addToCart(cart)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(reply -> disposables.add(repository.removeFromCart(cart)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(success -> disposables.add(repository.getCartItems()
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(data -> {
+                                            if (data.size() == 0)
+                                                assertTrue(true);
+                                            else
+                                                fail();
+                                        })
+                                ))
                         )
                 ));
     }
 
     @Test
-    public void testMyOrderAddition() {
+    public void testMyOrderOperations() {
 
         final CompositeDisposable disposables = new CompositeDisposable();
         List<MyOrder> myOrderList = new ArrayList<>();
@@ -115,7 +148,7 @@ public class DBOperationsTest {
         order.name = "OnePlus 6";
         order.productId = getRandomIntInclusive(2, 100000);
         order.description = "Lorem";
-        order.rating =  "4.5";
+        order.rating = "4.5";
         order.imageURL = "https://i.gadgets360cdn.com/products/large/1526490365_635_oneplus_6.jpg";
         order.price = "40000";
         myOrderList.add(order);
